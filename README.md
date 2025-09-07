@@ -41,7 +41,7 @@ If you have feedback, suggestions, or need help with UnattendedWinstall, please 
 
 - Windows 10 or Windows 11  
   - *(Tested on Windows 10 22H2 & Windows 11 24H2)*
-  - *(32-bit, 64-bit and arm64 is supported)*
+  - *(64-bit x64 only)*
 
 ## What Does UnattendedWinstall Do?
 
