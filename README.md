@@ -83,7 +83,7 @@ The UnattendedWinstall answer file comes with detailed descriptions for nearly a
   - *See the "Set-RecommendedHKLMRegistry" and "Set-RecommendedHKCURegistry" functions for more information*
 - Disables unnecessary scheduled tasks
 - Configures Windows services for optimal performance
-- Enables the Ultimate Performance power plan
+- Power settings remain at Windows defaults (Ultimate Performance power plan available via manual script execution)
 
 > [!NOTE] 
 > Use the `UWScript.ps1` file once Windows is installed to reapply or revert settings in case Windows Update resets some of the settings or if you encounter any issues.  
