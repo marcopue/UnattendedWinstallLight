@@ -981,7 +981,7 @@ Windows Registry Editor Version 5.00
           
 [HKEY_CLASSES_ROOT\*\shell\TakeOwnership]
 @="Take Ownership"
-"Extended"=-
+"Extended"=""
 "HasLUAShield"=""
 "NoWorkingDirectory"=""
 "NeverDefault"=""
@@ -993,7 +993,7 @@ Windows Registry Editor Version 5.00
 [HKEY_CLASSES_ROOT\Directory\shell\TakeOwnership]
 @="Take Ownership"
 "AppliesTo"="NOT (System.ItemPathDisplay:=\"C:\\Users\" OR System.ItemPathDisplay:=\"C:\\ProgramData\" OR System.ItemPathDisplay:=\"C:\\Windows\" OR System.ItemPathDisplay:=\"C:\\Windows\\System32\" OR System.ItemPathDisplay:=\"C:\\Program Files\" OR System.ItemPathDisplay:=\"C:\\Program Files (x86)\")"
-"Extended"=-
+"Extended"=""
 "HasLUAShield"=""
 "NoWorkingDirectory"=""
 "Position"="middle"
@@ -1004,7 +1004,7 @@ Windows Registry Editor Version 5.00
                 
 [HKEY_CLASSES_ROOT\Drive\shell\runas]
 @="Take Ownership"
-"Extended"=-
+"Extended"=""
 "HasLUAShield"=""
 "NoWorkingDirectory"=""
 "Position"="middle"
