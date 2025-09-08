@@ -506,7 +506,6 @@ function Show-MainMenu {
     Write-Host "3. Windows Updates"
     Write-Host "4. Optimize Registry"
     Write-Host "5. Tasks & Services"
-    Write-Host "6. Power Settings"
     Write-Host "0. Exit"
     
     $choice = Read-Host "Select an option (0-6)"
@@ -517,7 +516,6 @@ function Show-MainMenu {
         "3" { Show-WindowsUpdateMenu }  # Call the Windows Updates menu
         "4" { Show-OptimizeRegistryMenu } # Call the Optimize Registry menu
         "5" { Show-TasksServicesMenu } # Call the Tasks & Services menu
-        "6" { Show-PowerSettingsMenu } # Call the Power Settings menu
         "0" { $script:loop = $false }  # Exit
         default {
             Write-Host "Invalid selection. Please try again." -ForegroundColor Red
@@ -659,17 +657,6 @@ function Show-TasksServicesMenu {
         "2" = { Set-DefaultServices }
         "3" = { Disable-ScheduledTasks }
         "4" = { Enable-ScheduledTasks }
-    } `
-        -showHeader
-}
-
-# 6. Power Settings Menu
-function Show-PowerSettingsMenu {
-    Show-Menu -menuTitle "Power Settings" `
-        -options @("Recommended Power Settings", "Default Power Settings") `
-        -actions @{
-        "1" = { Set-RecommendedPowerSettings }
-        "2" = { Set-DefaultPowerSettings }
     } `
         -showHeader
 }
@@ -2958,127 +2945,6 @@ function Enable-ScheduledTasks {
 }
 # End of Tasks and Services Functions
 
-# Start of Power Settings Functions
-function Set-RecommendedPowerSettings {
-    Clear-Host
-    # Import and set Ultimate power plan
-    cmd /c "powercfg /duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61 99999999-9999-9999-9999-999999999999 >nul 2>&1 & powercfg /SETACTIVE 99999999-9999-9999-9999-999999999999 >nul 2>&1"
-
-    # Get all power plans and delete them
-    powercfg /L | ForEach-Object {
-        if ($_ -match "^\s*Power Scheme GUID: (\S+)") {
-            $guid = $matches[1]
-            if ($guid -ne "99999999-9999-9999-9999-999999999999") {
-                cmd /c "powercfg /delete $guid" | Out-Null
-            }
-        }
-    }
-
-    # Registry modifications
-    $regChanges = @(
-        'HKLM\SYSTEM\CurrentControlSet\Control\Power /v HibernateEnabled /t REG_DWORD /d 0', # Disables hibernate
-        'HKLM\SYSTEM\CurrentControlSet\Control\Power /v HibernateEnabledDefault /t REG_DWORD /d 0', # Disables default hibernate settings
-        'HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings /v ShowLockOption /t REG_DWORD /d 0', # Hides the Lock option from the Power menu
-        'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings /v ShowSleepOption /t REG_DWORD /d 0', # Hides the Sleep option from the Power menu
-        'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power /v HiberbootEnabled /t REG_DWORD /d 0', # Disables Fast Startup (Hiberboot)
-        'HKLM\SYSTEM\ControlSet001\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647-c1df-4637-891a-dec35c318583 /v ValueMax /t REG_DWORD /d 0', # Unparks CPU cores by setting the maximum processor state
-        'HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling /v PowerThrottlingOff /t REG_DWORD /d 1', # Disables power throttling
-        'HKLM\System\ControlSet001\Control\Power\PowerSettings\2a737441-1930-4402-8d77-b2bebba308a3\0853a681-27c8-4100-a2fd-82013e970683 /v Attributes /t REG_DWORD /d 2', # Unhides "Hub Selective Suspend Timeout"
-        'HKLM\System\ControlSet001\Control\Power\PowerSettings\2a737441-1930-4402-8d77-b2bebba308a3\d4e98f31-5ffe-4ce1-be31-1b38b384c009 /v Attributes /t REG_DWORD /d 2' # Unhides "USB 3 Link Power Management"
-    )
-
-
-    foreach ($reg in $regChanges) {
-        cmd /c "reg add `$reg` /f >nul 2>&1"
-    }
-
-    # Modify Power Plan settings
-    $settings = @(
-        @{
-            SubgroupGUID = "0012ee47-9041-4b5d-9b77-535fba8b1442" # Hard Disk
-            SettingGUIDs = @("6738e2c4-e8a5-4a42-b16a-e040e769756e") # Turn off hard disk after
-        },
-        @{
-            SubgroupGUID = "0d7dbae2-4294-402a-ba8e-26777e8488cd" # Desktop Background Settings
-            SettingGUIDs = @("309dce9b-bef4-4119-9921-a851fb12f0f4") # Slide show
-        },
-        @{
-            SubgroupGUID = "19cbb8fa-5279-450e-9fac-8a3d5fedd0c1" # Wireless Adapter Settings
-            SettingGUIDs = @("12bbebe6-58d6-4636-95bb-3217ef867c1a") # Power saving mode
-        },
-        @{
-            SubgroupGUID = "238c9fa8-0aad-41ed-83f4-97be242c8f20" # Sleep
-            SettingGUIDs = @(
-                "29f6c1db-86da-48c5-9fdb-f2b67b1f44da", # Sleep after
-                "94ac6d29-73ce-41a6-809f-6363ba21b47e", # Allow hybrid sleep
-                "9d7815a6-7ee4-497e-8888-515a05f02364", # Hibernate after
-                "bd3b718a-0680-4d9d-8ab2-e1d2b4ac806d"  # Allow wake timers
-            )
-        },
-        @{
-            SubgroupGUID = "2a737441-1930-4402-8d77-b2bebba308a3" # USB Settings
-            SettingGUIDs = @(
-                "0853a681-27c8-4100-a2fd-82013e970683", # USB selective suspend setting
-                "48e6b7a6-50f5-4782-a5d4-53bb8f07e226", # USB 3 Link Power Management
-                "d4e98f31-5ffe-4ce1-be31-1b38b384c009"  # USB Hub Selective Suspend Timeout
-            )
-        },
-        @{
-            SubgroupGUID = "501a4d13-42af-4429-9fd1-a8218c268e20" # PCI Express
-            SettingGUIDs = @("ee12f906-d277-404b-b6da-e5fa1a576df5") # Link State Power Management
-        },
-        @{
-            SubgroupGUID = "7516b95f-f776-4464-8c53-06167f40cc99" # Display settings
-            SettingGUIDs = @("3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e") # Turn off Display After setting
-        }
-    )
-
-
-    foreach ($group in $settings) {
-        $subgroup = $group.SubgroupGUID
-        foreach ($setting in $group.SettingGUIDs) {
-            powercfg /setacvalueindex 99999999-9999-9999-9999-999999999999 $subgroup $setting 0x00000000
-            powercfg /setdcvalueindex 99999999-9999-9999-9999-999999999999 $subgroup $setting 0x00000000
-        }
-    }
-
-    if (-not $isSpecializePhase) {
-        Show-Header
-        Write-Host "Recommended Power Settings Applied." -ForegroundColor Green
-        Wait-IfNotSpecialize
-        return
-    }
-}
-
-function Set-DefaultPowerSettings {
-    Clear-Host
-    # Restore default power plans and enable hibernate
-    powercfg -restoredefaultschemes
-    cmd /c "powercfg /hibernate on >nul 2>&1"
-    cmd /c "reg add `"HKLM\SYSTEM\CurrentControlSet\Control\Power`" /v `"HibernateEnabledDefault`" /t REG_DWORD /d `"1`" /f >nul 2>&1"
-
-    # Registry modifications
-    $regChanges = @(
-        'HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings /v ShowLockOption /t REG_DWORD /d 1',
-        'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings /v ShowSleepOption /t REG_DWORD /d 1',
-        'HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power /v HiberbootEnabled /t REG_DWORD /d 1',
-        'HKLM\SYSTEM\ControlSet001\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647-c1df-4637-891a-dec35c318583 /v ValueMax /t REG_DWORD /d 100',
-        'HKLM\System\ControlSet001\Control\Power\PowerSettings\2a737441-1930-4402-8d77-b2bebba308a3\0853a681-27c8-4100-a2fd-82013e970683 /v Attributes /t REG_DWORD /d 1',
-        'HKLM\System\ControlSet001\Control\Power\PowerSettings\2a737441-1930-4402-8d77-b2bebba308a3\d4e98f31-5ffe-4ce1-be31-1b38b384c009 /v Attributes /t REG_DWORD /d 1'
-    )
-
-    foreach ($reg in $regChanges) {
-        cmd /c "reg add `$reg` /f >nul 2>&1"
-    }
-
-    Show-Header
-    Write-Host "Default Power Settings Applied." -ForegroundColor Green
-    Wait-IfNotSpecialize
-    return
-}
-
-# End of Power Settings Functions
-
 # END OF COMMAND & OPERATION FUNCTIONS
 
 # Check if this is running in the specialize phase to Apply Settings automatically during Windows Installation
@@ -3104,8 +2970,6 @@ if (Test-Path -Path $markerFilePath) {
     # Tasks and Services
     Disable-ScheduledTasks
     Set-ServiceStartup
-    # Power Settings
-    Set-RecommendedPowerSettings
     exit
 }
 
