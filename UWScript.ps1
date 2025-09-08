@@ -2681,8 +2681,8 @@ if (Test-Path -Path $markerFilePath) {
     # Tasks and Services
     Disable-ScheduledTasks
     Set-ServiceStartup
-    # Power Settings
-    Set-RecommendedPowerSettings
+    # Power Settings - Removed automatic execution to preserve user power management preferences
+    # Set-RecommendedPowerSettings
     exit
 }
 
