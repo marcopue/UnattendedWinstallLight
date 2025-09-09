@@ -1547,11 +1547,6 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance]
 "fAllowToGetHelp"=dword:00000000
 
-; TROUBLESHOOTING
-; disable automatic maintenance
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance]
-"MaintenanceDisabled"=dword:00000001
-
 ; SECURITY AND MAINTENANCE
 ; disable report problems
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Error Reporting]
@@ -1969,11 +1964,6 @@ Windows Registry Editor Version 5.00
 "ATapp"=""
 "LaunchAT"=dword:00000000
 
-; CLOCK AND REGION
-; disable notify me when the clock changes
-[HKEY_CURRENT_USER\Control Panel\TimeDate]
-"DstNotification"=dword:00000000
-
 ; APPEARANCE AND PERSONALIZATION
 ; open file explorer to this pc
 ; show file name extensions
@@ -2035,7 +2025,6 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
 "ShowFrequent"=dword:00000000
 "ShowCloudFilesInQuickAccess"=dword:00000000
-"EnableAutoTray"=dword:00000000
 
 ; enable display full path in the title bar
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState]
@@ -2236,10 +2225,6 @@ Windows Registry Editor Version 5.00
 "NoStartMenuMFUprogramsList"=-
 "NoInstrumentation"=-
 "HideSCAMeetNow"=dword:00000001
-
-; remove search from taskbar
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Search]
-"SearchboxTaskbarMode"=dword:00000000
 
 ; disable use dynamic lighting on my devices
 ; disable compatible apps in the forground always control lighting
@@ -2877,7 +2862,6 @@ function Disable-ScheduledTasks {
     $scheduledTasks = @(
         "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser",
         "Microsoft\Windows\Application Experience\ProgramDataUpdater",
-        "Microsoft\Windows\Autochk\Proxy",
         "Microsoft\Windows\Customer Experience Improvement Program\Consolidator",
         "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip",
         "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector",
@@ -3293,7 +3277,6 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
 "ShowFrequent"=dword:00000000
 "ShowCloudFilesInQuickAccess"=dword:00000000
-"EnableAutoTray"=dword:00000000
 
 ; enable display full path in the title bar
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState]
@@ -3494,10 +3477,6 @@ Windows Registry Editor Version 5.00
 "NoStartMenuMFUprogramsList"=-
 "NoInstrumentation"=-
 "HideSCAMeetNow"=dword:00000001
-
-; remove search from taskbar
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Search]
-"SearchboxTaskbarMode"=dword:00000000
 
 ; disable use dynamic lighting on my devices
 ; disable compatible apps in the forground always control lighting
