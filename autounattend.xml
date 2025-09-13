@@ -927,16 +927,16 @@ $appxPackages = @(
     'MicrosoftCorporationII.MicrosoftFamily', 'Microsoft.WindowsFeedbackHub', 'Microsoft.GetHelp',
     'microsoft.windowscommunicationsapps', 'Microsoft.WindowsMaps', 'Microsoft.ZuneVideo',
     'Microsoft.BingNews', 'Microsoft.MicrosoftOfficeHub', 'Microsoft.Office.OneNote',
-    'Microsoft.OutlookForWindows', 'Microsoft.People', 'Microsoft.Windows.Photos',
+    'Microsoft.OutlookForWindows', 'Microsoft.People',
     'Microsoft.PowerAutomateDesktop', 'MicrosoftCorporationII.QuickAssist', 'Microsoft.SkypeApp',
     'Microsoft.MicrosoftSolitaireCollection', 'Microsoft.MicrosoftStickyNotes', 'MSTeams',
     'Microsoft.Getstarted', 'Microsoft.Todos', 'Microsoft.WindowsSoundRecorder', 'Microsoft.BingWeather',
-    'Microsoft.ZuneMusic', 'Microsoft.WindowsTerminal', 'Microsoft.Xbox.TCUI', 'Microsoft.XboxApp',
+    'Microsoft.ZuneMusic', 'Microsoft.Xbox.TCUI', 'Microsoft.XboxApp',
     'Microsoft.XboxGameOverlay', 'Microsoft.XboxGamingOverlay', 'Microsoft.XboxIdentityProvider',
     'Microsoft.XboxSpeechToTextOverlay', 'Microsoft.GamingApp', 'Microsoft.YourPhone', 'Microsoft.OneDrive',
-    'Microsoft.549981C3F5F10', 'Microsoft.MixedReality.Portal', 'Microsoft.ScreenSketch'
+    'Microsoft.549981C3F5F10', 'Microsoft.MixedReality.Portal',
     'Microsoft.Windows.Ai.Copilot.Provider', 'Microsoft.Copilot', 'Microsoft.Copilot_8wekyb3d8bbwe',
-    'Microsoft.WindowsMeetNow', 'Microsoft.WindowsStore', 'Microsoft.Paint', 'Microsoft.MSPaint'
+    'Microsoft.WindowsMeetNow', 'Microsoft.Paint', 'Microsoft.MSPaint'
 )
 
 # Define Windows Capabilities
@@ -1142,7 +1142,8 @@ function Get-UACStatus {
                 if ($uacStatus -eq 0) {
                     # Enable UAC and set the default prompt behavior
                     cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 1 /f 2>&1 | Out-Null
-                    cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 2 /f 2>&1 | Out-Null
+                    cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 5 /f 2>&1 | Out-Null
+                    cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v PromptOnSecureDesktop /t REG_DWORD /d 0 /f 2>&1 | Out-Null
                     Write-Host "UAC has been enabled successfully." -ForegroundColor Green
                 }
                 else {
@@ -1314,9 +1315,6 @@ Windows Registry Editor Version 5.00
 ; Prevent Automatic Upgrade from Windows 10 22H2 to Windows 11 (Manual Upgrade Still Allowed)
 ; Delay Feature and Quality updates for 1 year from install.
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]
-"TargetReleaseVersion"=dword:00000001
-"TargetReleaseVersionInfo"="22H2"
-"ProductVersion"="Windows 10"
 "DeferFeatureUpdates"=dword:00000001
 "DeferFeatureUpdatesPeriodInDays"=dword:0000016d
 "DeferQualityUpdates"=dword:00000001
@@ -1385,46 +1383,6 @@ function Set-RecommendedHKLMRegistry {
     $MultilineComment = @"
 Windows Registry Editor Version 5.00
 
-; Adds "Take Ownership" to the Right Click Context Menu for All Users
-                
-[-HKEY_CLASSES_ROOT\*\shell\TakeOwnership]
-[-HKEY_CLASSES_ROOT\*\shell\runas]
-          
-[HKEY_CLASSES_ROOT\*\shell\TakeOwnership]
-@="Take Ownership"
-"Extended"=""
-"HasLUAShield"=""
-"NoWorkingDirectory"=""
-"NeverDefault"=""
-          
-[HKEY_CLASSES_ROOT\*\shell\TakeOwnership\command]
-@="powershell -windowstyle hidden -command \"Start-Process cmd -ArgumentList '/c takeown /f \\\"%1\\\" && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l & pause' -Verb runAs\""
-"IsolatedCommand"= "powershell -windowstyle hidden -command \"Start-Process cmd -ArgumentList '/c takeown /f \\\"%1\\\" && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l & pause' -Verb runAs\""
-               
-[HKEY_CLASSES_ROOT\Directory\shell\TakeOwnership]
-@="Take Ownership"
-"AppliesTo"="NOT (System.ItemPathDisplay:=\"C:\\Users\" OR System.ItemPathDisplay:=\"C:\\ProgramData\" OR System.ItemPathDisplay:=\"C:\\Windows\" OR System.ItemPathDisplay:=\"C:\\Windows\\System32\" OR System.ItemPathDisplay:=\"C:\\Program Files\" OR System.ItemPathDisplay:=\"C:\\Program Files (x86)\")"
-"Extended"=""
-"HasLUAShield"=""
-"NoWorkingDirectory"=""
-"Position"="middle"
-          
-[HKEY_CLASSES_ROOT\Directory\shell\TakeOwnership\command]
-@="powershell -windowstyle hidden -command \"$Y = ($null | choice).Substring(1,1); Start-Process cmd -ArgumentList ('/c takeown /f \\\"%1\\\" /r /d ' + $Y + ' && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l /q & pause') -Verb runAs\""
-"IsolatedCommand"="powershell -windowstyle hidden -command \"$Y = ($null | choice).Substring(1,1); Start-Process cmd -ArgumentList ('/c takeown /f \\\"%1\\\" /r /d ' + $Y + ' && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l /q & pause') -Verb runAs\""
-                
-[HKEY_CLASSES_ROOT\Drive\shell\runas]
-@="Take Ownership"
-"Extended"=""
-"HasLUAShield"=""
-"NoWorkingDirectory"=""
-"Position"="middle"
-"AppliesTo"="NOT (System.ItemPathDisplay:=\"C:\\\")"
-          
-[HKEY_CLASSES_ROOT\Drive\shell\runas\command]
-@="cmd.exe /c takeown /f \"%1\\\" /r /d y && icacls \"%1\\\" /grant *S-1-3-4:F /t /c & Pause"
-"IsolatedCommand"="cmd.exe /c takeown /f \"%1\\\" /r /d y && icacls \"%1\\\" /grant *S-1-3-4:F /t /c & Pause"
-
 ; --Application and Feature Restrictions--
 
 ; Disable Windows Copilot system-wide
@@ -1484,20 +1442,13 @@ Windows Registry Editor Version 5.00
 ; Disables Consumer Account State Content
 ; Disables Cloud Optimized Content
 [HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\CloudContent]
-"DisableWindowsConsumerFeatures"=dword:00000000
+"DisableWindowsConsumerFeatures"=dword:00000001
 "DisableConsumerAccountStateContent"=dword:00000001
 "DisableCloudOptimizedContent"=dword:00000001
 
 ; Blocks the "Allow my organization to manage my device" and "No, sign in to this app only" pop-up message
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WorkplaceJoin]
 "BlockAADWorkplaceJoin"=dword:00000001
-
-; --Start Menu Customization--
-; Removes All Pinned Apps from the Start Menu to Clean it Up
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\current\device\Start]
-"ConfigureStartPins"="{ \"pinnedList\": [] }"
-"ConfigureStartPins_ProviderSet"=dword:00000001
-"ConfigureStartPins_WinningProvider"="B5292708-1619-419B-9923-E5D9F3925E71"
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\providers\B5292708-1619-419B-9923-E5D9F3925E71\default\Device\Start]
 "ConfigureStartPins"="{ \"pinnedList\": [] }"
@@ -1507,27 +1458,6 @@ Windows Registry Editor Version 5.00
 ; Enable Long File Paths with Up to 32,767 Characters
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem]
 "LongPathsEnabled"=dword:00000001
-
-; --Multimedia and Gaming Performance--
-; Gives Multimedia Applications like Games and Video Editing a Higher Priority
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile]
-"SystemResponsiveness"=dword:00000000
-"NetworkThrottlingIndex"=dword:0000000a
-
-; Gives Graphics Cards a Higher Priority for Gaming
-; Gives the CPU a Higher Priority for Gaming
-; Gives Games a higher priority in the system's scheduling
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games]
-"GPU Priority"=dword:00000008
-"Priority"=dword:00000006
-"Scheduling Category"="High"
-
-; disable startup sound
-[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation]
-"DisableStartupSound"=dword:00000001
-
-[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\EditionOverrides]
-"UserSetting_DisableStartupSound"=dword:00000001
 
 ; disable device installation settings
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata]
@@ -1599,11 +1529,6 @@ Windows Registry Editor Version 5.00
 ; disable widgets
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\NewsAndInterests\AllowNewsAndInterests]
 "value"=dword:00000000
-
-; NVIDIA
-; enable old nvidia sharpening
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS]
-"EnableGR535"=dword:00000000
 
 ; OTHER
 ; remove 3d objects
@@ -1967,59 +1892,28 @@ Windows Registry Editor Version 5.00
 ; APPEARANCE AND PERSONALIZATION
 ; open file explorer to this pc
 ; show file name extensions
-; disable display file size information in folder tips
-; disable show pop-up description for folder and desktop items
 ; disable show preview handlers in preview pane
-; disable show status bar
 ; disable show sync provider notifications
 ; disable use sharing wizard
-; disable animations in the taskbar
-; enable show thumbnails instead of icons
-; disable show translucent selection rectangle
-; disable use drop shadows for icon labels on the desktop
-; more pins personalization start
-; disable show account-related notifications
-; disable show recently opened items in start, jump lists and file explorer
-; left taskbar alignment
-; remove chat from taskbar
+; disable show account notifications
 ; remove task view from taskbar
 ; remove copilot from taskbar
 ; disable show recommendations for tips shortcuts new apps and more
-; disable share any window from my taskbar
-; disable snap window settings - SnapAssist to JointResize Entries
 ; alt tab open windows only
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 "LaunchTo"=dword:00000001
 "HideFileExt"=dword:00000000
-"FolderContentsInfoTip"=dword:00000000
-"ShowInfoTip"=dword:00000000
 "ShowPreviewHandlers"=dword:00000000
-"ShowStatusBar"=dword:00000000
 "ShowSyncProviderNotifications"=dword:00000000
 "SharingWizardOn"=dword:00000000
-"TaskbarAnimations"=dword:0
-"IconsOnly"=dword:0
-"ListviewAlphaSelect"=dword:0
-"ListviewShadow"=dword:0
-"Start_Layout"=dword:00000001
 "Start_AccountNotifications"=dword:00000000
-"Start_TrackDocs"=dword:00000000 
 "ShowTaskViewButton"=dword:00000000
 "ShowCopilotButton"=dword:00000000
 "Start_IrisRecommendations"=dword:00000000
-"TaskbarSn"=dword:00000000
-"SnapAssist"=dword:00000000
-"DITest"=dword:00000000
-"EnableSnapBar"=dword:00000000
-"EnableTaskGroups"=dword:00000000
-"EnableSnapAssistFlyout"=dword:00000000
-"SnapFill"=dword:00000000
-"JointResize"=dword:00000000
 "MultiTaskingAltTabFilter"=dword:00000003
 
 ; hide frequent folders in quick access
 ; disable show files from office.com
-; show all taskbar icons on Windows 10
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
 "ShowFrequent"=dword:00000000
 "ShowCloudFilesInQuickAccess"=dword:00000000
@@ -2054,29 +1948,6 @@ Windows Registry Editor Version 5.00
 	00,00,E0,00,00,00,00,00
 
 ; SYSTEM AND SECURITY
-; set appearance options to custom
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects]
-"VisualFXSetting"=dword:3
-
-; disable animate controls and elements inside windows
-; disable fade or slide menus into view
-; disable fade or slide tooltips into view
-; disable fade out menu items after clicking
-; disable show shadows under mouse pointer
-; disable show shadows under windows
-; disable slide open combo boxes
-; disable smooth-scroll list boxes
-; enable smooth edges of screen fonts
-; 100% dpi scaling
-; disable fix scaling for apps
-; disable menu show delay
-[HKEY_CURRENT_USER\Control Panel\Desktop]
-"UserPreferencesMask"=hex(2):90,12,03,80,10,00,00,00
-"FontSmoothing"="2"
-"LogPixels"=dword:00000060
-"Win8DpiScaling"=dword:00000001
-"EnablePerProcessSystemDPI"=dword:00000000
-"MenuShowDelay"="0"
 
 ; --IMMERSIVE CONTROL PANEL--
 ; PRIVACY
@@ -2117,7 +1988,6 @@ Windows Registry Editor Version 5.00
 ; feedback frequency never
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Siuf\Rules]
 "NumberOfSIUFInPeriod"=dword:00000000
-"PeriodInNanoSeconds"=-
 
 ; SEARCH
 ; disable search highlights
@@ -3310,24 +3180,8 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects]
 "VisualFXSetting"=dword:3
 
-; disable animate controls and elements inside windows
-; disable fade or slide menus into view
-; disable fade or slide tooltips into view
-; disable fade out menu items after clicking
-; disable show shadows under mouse pointer
-; disable show shadows under windows
-; disable slide open combo boxes
-; disable smooth-scroll list boxes
-; enable smooth edges of screen fonts
-; 100% dpi scaling
-; disable fix scaling for apps
 ; disable menu show delay
 [HKEY_CURRENT_USER\Control Panel\Desktop]
-"UserPreferencesMask"=hex(2):90,12,03,80,10,00,00,00
-"FontSmoothing"="2"
-"LogPixels"=dword:00000060
-"Win8DpiScaling"=dword:00000001
-"EnablePerProcessSystemDPI"=dword:00000000
 "MenuShowDelay"="0"
 
 ; --IMMERSIVE CONTROL PANEL--
@@ -3369,7 +3223,6 @@ Windows Registry Editor Version 5.00
 ; feedback frequency never
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Siuf\Rules]
 "NumberOfSIUFInPeriod"=dword:00000000
-"PeriodInNanoSeconds"=-
 
 ; SEARCH
 ; disable search highlights
@@ -3501,23 +3354,6 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Microsoft\DirectX\UserGpuPreferences]
 "DirectXUserGlobalSettings"="SwapEffectUpgradeEnable=1;VRROptimizeEnable=0;"
 
-; disable notifications
-; Disable Notifications on Lock Screen
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\PushNotifications]
-"ToastEnabled"=dword:00000000
-"LockScreenToastEnabled"=dword:00000000
-
-; Disable Allow Notifications to Play Sounds
-; Disable Notifications on Lock Screen
-; Disable Show Reminders and VoIP Calls Notifications on Lock Screen
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings]
-"NOC_GLOBAL_SETTING_ALLOW_NOTIFICATION_SOUND"=dword:00000000
-"NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK"=dword:00000000
-"NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance]
-"Enabled"=dword:00000000
-
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel]
 "Enabled"=dword:00000000
 
@@ -3574,13 +3410,6 @@ Windows Registry Editor Version 5.00
 "SystemPaneSuggestionsEnabled"=dword:00000000
 
 ; OTHER
-; remove gallery
-[HKEY_CURRENT_USER\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}]
-"System.IsPinnedToNameSpaceTree"=dword:00000000
-
-; restore the classic context menu
-[HKEY_CURRENT_USER\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32]
-@=""
 
 ; removes OneDrive Setup
 [-HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
@@ -3591,62 +3420,6 @@ Windows Registry Editor Version 5.00
 "HideNewOutlookToggle"=dword:00000000
 
 ; Cleans up Taskbar
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband]
-"FavoritesRemovedChanges"=dword:00000003
-"FavoritesResolve"=hex:31,03,00,00,4c,00,00,00,01,14,02,00,00,00,00,00,c0,00,\
-  00,00,00,00,00,46,83,00,80,00,20,00,00,00,be,33,35,e7,d1,24,db,01,be,33,35,\
-  e7,d1,24,db,01,25,b3,7a,4d,05,84,da,01,97,01,00,00,00,00,00,00,01,00,00,00,\
-  00,00,00,00,00,00,00,00,00,00,00,00,a0,01,3a,00,1f,80,c8,27,34,1f,10,5c,10,\
-  42,aa,03,2e,e4,52,87,d6,68,26,00,01,00,26,00,ef,be,12,00,00,00,85,35,2b,d7,\
-  d1,24,db,01,9b,e4,33,e7,d1,24,db,01,ab,5a,34,e7,d1,24,db,01,14,00,56,00,31,\
-  00,00,00,00,00,56,59,b9,b3,11,00,54,61,73,6b,42,61,72,00,40,00,09,00,04,00,\
-  ef,be,56,59,b9,b3,56,59,b9,b3,2e,00,00,00,f2,69,01,00,00,00,04,00,00,00,00,\
-  00,00,00,00,00,00,00,00,00,00,00,ef,80,fc,00,54,00,61,00,73,00,6b,00,42,00,\
-  61,00,72,00,00,00,16,00,0e,01,32,00,97,01,00,00,81,58,c4,3a,20,00,46,49,4c,\
-  45,45,58,7e,31,2e,4c,4e,4b,00,00,7c,00,09,00,04,00,ef,be,56,59,b9,b3,56,59,\
-  b9,b3,2e,00,00,00,c3,6a,01,00,00,00,02,00,00,00,00,00,00,00,00,00,52,00,00,\
-  00,00,00,db,dc,91,00,46,00,69,00,6c,00,65,00,20,00,45,00,78,00,70,00,6c,00,\
-  6f,00,72,00,65,00,72,00,2e,00,6c,00,6e,00,6b,00,00,00,40,00,73,00,68,00,65,\
-  00,6c,00,6c,00,33,00,32,00,2e,00,64,00,6c,00,6c,00,2c,00,2d,00,32,00,32,00,\
-  30,00,36,00,37,00,00,00,1c,00,22,00,00,00,1e,00,ef,be,02,00,55,00,73,00,65,\
-  00,72,00,50,00,69,00,6e,00,6e,00,65,00,64,00,00,00,1c,00,12,00,00,00,2b,00,\
-  ef,be,7c,4c,37,e7,d1,24,db,01,1c,00,42,00,00,00,1d,00,ef,be,02,00,4d,00,69,\
-  00,63,00,72,00,6f,00,73,00,6f,00,66,00,74,00,2e,00,57,00,69,00,6e,00,64,00,\
-  6f,00,77,00,73,00,2e,00,45,00,78,00,70,00,6c,00,6f,00,72,00,65,00,72,00,00,\
-  00,1c,00,00,00,9a,00,00,00,1c,00,00,00,01,00,00,00,1c,00,00,00,2d,00,00,00,\
-  00,00,00,00,99,00,00,00,11,00,00,00,03,00,00,00,0e,76,ea,84,10,00,00,00,00,\
-  43,3a,5c,55,73,65,72,73,5c,6d,65,6d,5c,41,70,70,44,61,74,61,5c,52,6f,61,6d,\
-  69,6e,67,5c,4d,69,63,72,6f,73,6f,66,74,5c,49,6e,74,65,72,6e,65,74,20,45,78,\
-  70,6c,6f,72,65,72,5c,51,75,69,63,6b,20,4c,61,75,6e,63,68,5c,55,73,65,72,20,\
-  50,69,6e,6e,65,64,5c,54,61,73,6b,42,61,72,5c,46,69,6c,65,20,45,78,70,6c,6f,\
-  72,65,72,2e,6c,6e,6b,00,00,60,00,00,00,03,00,00,a0,58,00,00,00,00,00,00,00,\
-  64,65,73,6b,74,6f,70,2d,6e,76,6a,67,69,71,33,00,1e,48,b8,ac,e6,93,44,44,85,\
-  d1,06,17,eb,52,3b,ea,cc,41,5d,b0,c4,90,ef,11,b9,08,00,0c,29,5b,06,9a,1e,48,\
-  b8,ac,e6,93,44,44,85,d1,06,17,eb,52,3b,ea,cc,41,5d,b0,c4,90,ef,11,b9,08,00,\
-  0c,29,5b,06,9a,45,00,00,00,09,00,00,a0,39,00,00,00,31,53,50,53,b1,16,6d,44,\
-  ad,8d,70,48,a7,48,40,2e,a4,3d,78,8c,1d,00,00,00,68,00,00,00,00,48,00,00,00,\
-  d4,d9,2d,27,b2,34,c5,4f,ad,3b,78,a5,c4,f6,71,2d,00,00,00,00,00,00,00,00,00,\
-  00,00,00
-"Favorites"=hex:00,a4,01,00,00,3a,00,1f,80,c8,27,34,1f,10,5c,10,42,aa,03,2e,e4,\
-  52,87,d6,68,26,00,01,00,26,00,ef,be,12,00,00,00,85,35,2b,d7,d1,24,db,01,9b,\
-  e4,33,e7,d1,24,db,01,ab,5a,34,e7,d1,24,db,01,14,00,56,00,31,00,00,00,00,00,\
-  56,59,b9,b3,11,00,54,61,73,6b,42,61,72,00,40,00,09,00,04,00,ef,be,56,59,b9,\
-  b3,56,59,b9,b3,2e,00,00,00,f2,69,01,00,00,00,04,00,00,00,00,00,00,00,00,00,\
-  00,00,00,00,00,00,ef,80,fc,00,54,00,61,00,73,00,6b,00,42,00,61,00,72,00,00,\
-  00,16,00,12,01,32,00,97,01,00,00,81,58,c4,3a,20,00,46,49,4c,45,45,58,7e,31,\
-  2e,4c,4e,4b,00,00,7c,00,09,00,04,00,ef,be,56,59,b9,b3,56,59,b9,b3,2e,00,00,\
-  00,c3,6a,01,00,00,00,02,00,00,00,00,00,00,00,00,00,52,00,00,00,00,00,db,dc,\
-  91,00,46,00,69,00,6c,00,65,00,20,00,45,00,78,00,70,00,6c,00,6f,00,72,00,65,\
-  00,72,00,2e,00,6c,00,6e,00,6b,00,00,00,40,00,73,00,68,00,65,00,6c,00,6c,00,\
-  33,00,32,00,2e,00,64,00,6c,00,6c,00,2c,00,2d,00,32,00,32,00,30,00,36,00,37,\
-  00,00,00,1c,00,12,00,00,00,2b,00,ef,be,7c,4c,37,e7,d1,24,db,01,1c,00,42,00,\
-  00,00,1d,00,ef,be,02,00,4d,00,69,00,63,00,72,00,6f,00,73,00,6f,00,66,00,74,\
-  00,2e,00,57,00,69,00,6e,00,64,00,6f,00,77,00,73,00,2e,00,45,00,78,00,70,00,\
-  6c,00,6f,00,72,00,65,00,72,00,00,00,1c,00,26,00,00,00,1e,00,ef,be,02,00,53,\
-  00,79,00,73,00,74,00,65,00,6d,00,50,00,69,00,6e,00,6e,00,65,00,64,00,00,00,\
-  1c,00,00,00,ff
-"FavoritesChanges"=dword:00000002
-"FavoritesVersion"=dword:00000002
 
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband\AuxilliaryPins]
 "MailPin"=dword:00000000
@@ -3759,7 +3532,9 @@ $xamlWindow.FindName("EnableUACButton").Add_Click({
     If ($result -eq 'Yes') {
         Try {
             Write-Output "Enable UAC Button Clicked"
-            cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 3 /f
+            cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 1 /f
+            cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 5 /f
+            cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v PromptOnSecureDesktop /t REG_DWORD /d 0 /f
             [System.Windows.MessageBox]::Show("User Account Control (UAC) has been successfully enabled.", "Success", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information)
         } Catch {
             [System.Windows.MessageBox]::Show("Failed to enable UAC.", "Error", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Error)

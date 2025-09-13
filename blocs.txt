@@ -1,0 +1,6 @@
+Ligne 1043 OK
+1216 OK
+1292 OK
+1317 à vérifier et adapter pour W11
+1427 envisager de désactiver le bouton takeownership
+1604 OK
