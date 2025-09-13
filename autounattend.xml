@@ -2004,8 +2004,6 @@ Windows Registry Editor Version 5.00
 "Start_Layout"=dword:00000001
 "Start_AccountNotifications"=dword:00000000
 "Start_TrackDocs"=dword:00000000 
-"TaskbarAl"=dword:00000000
-"TaskbarMn"=dword:00000000
 "ShowTaskViewButton"=dword:00000000
 "ShowCopilotButton"=dword:00000000
 "Start_IrisRecommendations"=dword:00000000
