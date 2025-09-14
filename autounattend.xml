@@ -931,12 +931,12 @@ $appxPackages = @(
     'Microsoft.PowerAutomateDesktop', 'MicrosoftCorporationII.QuickAssist', 'Microsoft.SkypeApp',
     'Microsoft.MicrosoftSolitaireCollection', 'Microsoft.MicrosoftStickyNotes', 'MSTeams',
     'Microsoft.Getstarted', 'Microsoft.Todos', 'Microsoft.WindowsSoundRecorder', 'Microsoft.BingWeather',
-    'Microsoft.ZuneMusic', 'Microsoft.WindowsTerminal', 'Microsoft.Xbox.TCUI', 'Microsoft.XboxApp',
+    'Microsoft.ZuneMusic', 'Microsoft.Xbox.TCUI', 'Microsoft.XboxApp',
     'Microsoft.XboxGameOverlay', 'Microsoft.XboxGamingOverlay', 'Microsoft.XboxIdentityProvider',
     'Microsoft.XboxSpeechToTextOverlay', 'Microsoft.GamingApp', 'Microsoft.YourPhone', 'Microsoft.OneDrive',
-    'Microsoft.549981C3F5F10', 'Microsoft.MixedReality.Portal', 'Microsoft.ScreenSketch'
+    'Microsoft.549981C3F5F10', 'Microsoft.MixedReality.Portal',
     'Microsoft.Windows.Ai.Copilot.Provider', 'Microsoft.Copilot', 'Microsoft.Copilot_8wekyb3d8bbwe',
-    'Microsoft.WindowsMeetNow', 'Microsoft.WindowsStore', 'Microsoft.Paint', 'Microsoft.MSPaint'
+    'Microsoft.WindowsMeetNow', 'Microsoft.Paint', 'Microsoft.MSPaint'
 )
 
 # Define Windows Capabilities
@@ -1787,11 +1787,6 @@ Windows Registry Editor Version 5.00
 ; remote assistance
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance]
 "fAllowToGetHelp"=dword:00000001
-
-; TROUBLESHOOTING
-; automatic maintenance
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance]
-"MaintenanceDisabled"=-
 
 ; SECURITY AND MAINTENANCE
 ; report problems
@@ -2897,7 +2892,6 @@ function Enable-ScheduledTasks {
     $scheduledTasks = @(
         "Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser",
         "Microsoft\Windows\Application Experience\ProgramDataUpdater",
-        "Microsoft\Windows\Autochk\Proxy",
         "Microsoft\Windows\Customer Experience Improvement Program\Consolidator",
         "Microsoft\Windows\Customer Experience Improvement Program\UsbCeip",
         "Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector",
