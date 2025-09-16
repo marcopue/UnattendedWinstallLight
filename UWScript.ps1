@@ -1,3 +1,7 @@
+# UWScript - Windows 11 Optimized
+# UnattendedWinstallLight - Windows 11 Configuration Script
+# https://github.com/marcopue/UnattendedWinstallLight
+
 # Check if script is running as Administrator
 If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
     Try {
@@ -509,23 +513,23 @@ function Install-AppWithWinGet {
 }
 
 # Remove Bloatware Apps Functions
-# Define Packages
+# Define Packages (excluding Microsoft Store, Photos, ScreenSketch, and Terminal for Windows 11)
 $appxPackages = @(
     'Microsoft.Microsoft3DViewer', 'Microsoft.BingSearch', 'Microsoft.WindowsCamera', 'Clipchamp.Clipchamp',
     'Microsoft.WindowsAlarms', 'Microsoft.549981C3F5F10', 'Microsoft.Windows.DevHome',
     'MicrosoftCorporationII.MicrosoftFamily', 'Microsoft.WindowsFeedbackHub', 'Microsoft.GetHelp',
     'microsoft.windowscommunicationsapps', 'Microsoft.WindowsMaps', 'Microsoft.ZuneVideo',
     'Microsoft.BingNews', 'Microsoft.MicrosoftOfficeHub', 'Microsoft.Office.OneNote',
-    'Microsoft.OutlookForWindows', 'Microsoft.People', 'Microsoft.Windows.Photos',
+    'Microsoft.OutlookForWindows', 'Microsoft.People',
     'Microsoft.PowerAutomateDesktop', 'MicrosoftCorporationII.QuickAssist', 'Microsoft.SkypeApp',
     'Microsoft.MicrosoftSolitaireCollection', 'Microsoft.MicrosoftStickyNotes', 'MSTeams',
     'Microsoft.Getstarted', 'Microsoft.Todos', 'Microsoft.WindowsSoundRecorder', 'Microsoft.BingWeather',
-    'Microsoft.ZuneMusic', 'Microsoft.WindowsTerminal', 'Microsoft.Xbox.TCUI', 'Microsoft.XboxApp',
+    'Microsoft.ZuneMusic', 'Microsoft.Xbox.TCUI', 'Microsoft.XboxApp',
     'Microsoft.XboxGameOverlay', 'Microsoft.XboxGamingOverlay', 'Microsoft.XboxIdentityProvider',
     'Microsoft.XboxSpeechToTextOverlay', 'Microsoft.GamingApp', 'Microsoft.YourPhone', 'Microsoft.OneDrive',
-    'Microsoft.549981C3F5F10', 'Microsoft.MixedReality.Portal', 'Microsoft.ScreenSketch'
+    'Microsoft.549981C3F5F10', 'Microsoft.MixedReality.Portal',
     'Microsoft.Windows.Ai.Copilot.Provider', 'Microsoft.Copilot', 'Microsoft.Copilot_8wekyb3d8bbwe',
-    'Microsoft.WindowsMeetNow', 'Microsoft.WindowsStore', 'Microsoft.Paint', 'Microsoft.MSPaint'
+    'Microsoft.WindowsMeetNow', 'Microsoft.Paint', 'Microsoft.MSPaint'
 )
 
 # Define Windows Capabilities
@@ -729,16 +733,18 @@ function Get-UACStatus {
             $confirm = Read-Host "Are you sure you want to change UAC status? (y/n)"
             if ($confirm -eq 'y') {
                 if ($uacStatus -eq 0) {
-                    # Enable UAC and set the default prompt behavior
+                    # Enable UAC with recommended settings
                     cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 1 /f 2>&1 | Out-Null
-                    cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 2 /f 2>&1 | Out-Null
-                    Write-Host "UAC has been enabled successfully." -ForegroundColor Green
+                    cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 5 /f 2>&1 | Out-Null
+                    cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v PromptOnSecureDesktop /t REG_DWORD /d 0 /f 2>&1 | Out-Null
+                    Write-Host "UAC has been enabled with recommended settings." -ForegroundColor Green
                 }
                 else {
-                    # Disable UAC and default prompt behavior
-                    cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 0 /f 2>&1 | Out-Null
-                    cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 0 /f 2>&1 | Out-Null
-                    Write-Host "UAC has been disabled successfully." -ForegroundColor Green
+                    # Configure UAC with recommended prompt behavior settings
+                    cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 1 /f 2>&1 | Out-Null
+                    cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 5 /f 2>&1 | Out-Null
+                    cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v PromptOnSecureDesktop /t REG_DWORD /d 0 /f 2>&1 | Out-Null
+                    Write-Host "UAC has been configured with recommended settings." -ForegroundColor Green
                 }
                 Write-Host "Press any key to continue."
                 Read-Host
@@ -900,14 +906,11 @@ Windows Registry Editor Version 5.00
 "AUOptions"=dword:00000002
 "AutoInstallMinorUpdates"=dword:00000000
 
-; Prevent Automatic Upgrade from Windows 10 22H2 to Windows 11 (Manual Upgrade Still Allowed)
-; Delay Feature and Quality updates for 1 year from install.
+; Windows 11 Update Settings - Optimized Configuration
+; Delay Feature and Quality updates for better stability
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]
-"TargetReleaseVersion"=dword:00000001
-"TargetReleaseVersionInfo"="22H2"
-"ProductVersion"="Windows 10"
 "DeferFeatureUpdates"=dword:00000001
-"DeferFeatureUpdatesPeriodInDays"=dword:0000016d
+"DeferFeatureUpdatesPeriodInDays"=dword:0000001e
 "DeferQualityUpdates"=dword:00000001
 "DeferQualityUpdatesPeriodInDays"=dword:00000007
 
@@ -944,12 +947,9 @@ Windows Registry Editor Version 5.00
 "AUOptions"=-    
 "AutoInstallMinorUpdates"=-
     
-; --Revert Windows 10 22H2 Auto Upgrade to 11 Block to Default--
+; --Revert Windows 11 Update Deferral to Default Settings--
 ; Allow Feature and Quality updates
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]
-"TargetReleaseVersion"=-
-"TargetReleaseVersionInfo"=-
-"ProductVersion"=-
 "DeferFeatureUpdates"=-
 "DeferFeatureUpdatesPeriodInDays"=-
 "DeferQualityUpdates"=dword:-
@@ -1620,7 +1620,7 @@ Windows Registry Editor Version 5.00
 
 ; hide frequent folders in quick access
 ; disable show files from office.com
-; show all taskbar icons on Windows 10
+; taskbar configuration settings
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
 "ShowFrequent"=dword:00000000
 "ShowCloudFilesInQuickAccess"=dword:00000000
