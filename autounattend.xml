@@ -1311,12 +1311,11 @@ Windows Registry Editor Version 5.00
 "AUOptions"=dword:00000002
 "AutoInstallMinorUpdates"=dword:00000000
 
-; Prevent Automatic Upgrade from Windows 10 22H2 to Windows 11 (Manual Upgrade Still Allowed)
+; Prevent Automatic Upgrade from Windows 11 24H2 to 25H2 (Manual Upgrade Still Allowed)
 ; Delay Feature and Quality updates for 1 year from install.
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate]
 "TargetReleaseVersion"=dword:00000001
-"TargetReleaseVersionInfo"="22H2"
-"ProductVersion"="Windows 10"
+"TargetReleaseVersionInfo"="24H2"
 "DeferFeatureUpdates"=dword:00000001
 "DeferFeatureUpdatesPeriodInDays"=dword:0000016d
 "DeferQualityUpdates"=dword:00000001
@@ -1484,7 +1483,7 @@ Windows Registry Editor Version 5.00
 ; Disables Consumer Account State Content
 ; Disables Cloud Optimized Content
 [HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\CloudContent]
-"DisableWindowsConsumerFeatures"=dword:00000000
+"DisableWindowsConsumerFeatures"=dword:00000001
 "DisableConsumerAccountStateContent"=dword:00000001
 "DisableCloudOptimizedContent"=dword:00000001
 
@@ -1602,7 +1601,7 @@ Windows Registry Editor Version 5.00
 
 ; NVIDIA
 ; enable old nvidia sharpening
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\nvlddmkm\FTS]
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\nvlddmkm\Parameters\FTS]
 "EnableGR535"=dword:00000000
 
 ; OTHER
@@ -2016,7 +2015,6 @@ Windows Registry Editor Version 5.00
 
 ; hide frequent folders in quick access
 ; disable show files from office.com
-; show all taskbar icons on Windows 10
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
 "ShowFrequent"=dword:00000000
 "ShowCloudFilesInQuickAccess"=dword:00000000
@@ -2444,11 +2442,9 @@ Windows Registry Editor Version 5.00
 
 ; frequent folders in quick access
 ; show files from office.com
-; don't show all taskbar icons
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
 "ShowFrequent"=-
 "ShowCloudFilesInQuickAccess"=-
-"EnableAutoTray"=-
 
 ; display full path in the title bar
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState]
@@ -3267,7 +3263,6 @@ Windows Registry Editor Version 5.00
 
 ; hide frequent folders in quick access
 ; disable show files from office.com
-; show all taskbar icons on Windows 10
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
 "ShowFrequent"=dword:00000000
 "ShowCloudFilesInQuickAccess"=dword:00000000
