@@ -1384,46 +1384,6 @@ function Set-RecommendedHKLMRegistry {
     $MultilineComment = @"
 Windows Registry Editor Version 5.00
 
-; Adds "Take Ownership" to the Right Click Context Menu for All Users
-                
-[-HKEY_CLASSES_ROOT\*\shell\TakeOwnership]
-[-HKEY_CLASSES_ROOT\*\shell\runas]
-          
-[HKEY_CLASSES_ROOT\*\shell\TakeOwnership]
-@="Take Ownership"
-"Extended"=""
-"HasLUAShield"=""
-"NoWorkingDirectory"=""
-"NeverDefault"=""
-          
-[HKEY_CLASSES_ROOT\*\shell\TakeOwnership\command]
-@="powershell -windowstyle hidden -command \"Start-Process cmd -ArgumentList '/c takeown /f \\\"%1\\\" && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l & pause' -Verb runAs\""
-"IsolatedCommand"= "powershell -windowstyle hidden -command \"Start-Process cmd -ArgumentList '/c takeown /f \\\"%1\\\" && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l & pause' -Verb runAs\""
-               
-[HKEY_CLASSES_ROOT\Directory\shell\TakeOwnership]
-@="Take Ownership"
-"AppliesTo"="NOT (System.ItemPathDisplay:=\"C:\\Users\" OR System.ItemPathDisplay:=\"C:\\ProgramData\" OR System.ItemPathDisplay:=\"C:\\Windows\" OR System.ItemPathDisplay:=\"C:\\Windows\\System32\" OR System.ItemPathDisplay:=\"C:\\Program Files\" OR System.ItemPathDisplay:=\"C:\\Program Files (x86)\")"
-"Extended"=""
-"HasLUAShield"=""
-"NoWorkingDirectory"=""
-"Position"="middle"
-          
-[HKEY_CLASSES_ROOT\Directory\shell\TakeOwnership\command]
-@="powershell -windowstyle hidden -command \"$Y = ($null | choice).Substring(1,1); Start-Process cmd -ArgumentList ('/c takeown /f \\\"%1\\\" /r /d ' + $Y + ' && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l /q & pause') -Verb runAs\""
-"IsolatedCommand"="powershell -windowstyle hidden -command \"$Y = ($null | choice).Substring(1,1); Start-Process cmd -ArgumentList ('/c takeown /f \\\"%1\\\" /r /d ' + $Y + ' && icacls \\\"%1\\\" /grant *S-1-3-4:F /t /c /l /q & pause') -Verb runAs\""
-                
-[HKEY_CLASSES_ROOT\Drive\shell\runas]
-@="Take Ownership"
-"Extended"=""
-"HasLUAShield"=""
-"NoWorkingDirectory"=""
-"Position"="middle"
-"AppliesTo"="NOT (System.ItemPathDisplay:=\"C:\\\")"
-          
-[HKEY_CLASSES_ROOT\Drive\shell\runas\command]
-@="cmd.exe /c takeown /f \"%1\\\" /r /d y && icacls \"%1\\\" /grant *S-1-3-4:F /t /c & Pause"
-"IsolatedCommand"="cmd.exe /c takeown /f \"%1\\\" /r /d y && icacls \"%1\\\" /grant *S-1-3-4:F /t /c & Pause"
-
 ; --Application and Feature Restrictions--
 
 ; Disable Windows Copilot system-wide
@@ -1491,43 +1451,12 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WorkplaceJoin]
 "BlockAADWorkplaceJoin"=dword:00000001
 
-; --Start Menu Customization--
-; Removes All Pinned Apps from the Start Menu to Clean it Up
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\current\device\Start]
-"ConfigureStartPins"="{ \"pinnedList\": [] }"
-"ConfigureStartPins_ProviderSet"=dword:00000001
-"ConfigureStartPins_WinningProvider"="B5292708-1619-419B-9923-E5D9F3925E71"
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\providers\B5292708-1619-419B-9923-E5D9F3925E71\default\Device\Start]
-"ConfigureStartPins"="{ \"pinnedList\": [] }"
-"ConfigureStartPins_LastWrite"=dword:00000001
-
 ; --File System Settings--
 ; Enable Long File Paths with Up to 32,767 Characters
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem]
 "LongPathsEnabled"=dword:00000001
 
-; --Multimedia and Gaming Performance--
-; Gives Multimedia Applications like Games and Video Editing a Higher Priority
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile]
-"SystemResponsiveness"=dword:00000000
-"NetworkThrottlingIndex"=dword:0000000a
-
-; Gives Graphics Cards a Higher Priority for Gaming
-; Gives the CPU a Higher Priority for Gaming
-; Gives Games a higher priority in the system's scheduling
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games]
-"GPU Priority"=dword:00000008
-"Priority"=dword:00000006
-"Scheduling Category"="High"
-
-; disable startup sound
-[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation]
-"DisableStartupSound"=dword:00000001
-
-[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\EditionOverrides]
-"UserSetting_DisableStartupSound"=dword:00000001
-
+; --Multimedia--
 ; disable device installation settings
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata]
 "PreventDeviceMetadataFromNetwork"=dword:00000001
@@ -1536,11 +1465,6 @@ Windows Registry Editor Version 5.00
 ; disable allow other network users to control or disable the shared internet connection
 [HKEY_LOCAL_MACHINE\System\ControlSet001\Control\Network\SharedAccessConnection]
 "EnableControl"=dword:00000000
-
-; SYSTEM AND SECURITY
-; adjust for best performance of programs
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl]
-"Win32PrioritySeparation"=dword:00000026
 
 ; disable remote assistance
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance]
@@ -1707,67 +1631,13 @@ Windows Registry Editor Version 5.00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WorkplaceJoin]
 "BlockAADWorkplaceJoin"=-
 
-; --Revert Start Menu Customization--
-
-; Restores Default Pinned Apps to the Start Menu
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\current\device\Start]
-"ConfigureStartPins"=-
-"ConfigureStartPins_ProviderSet"=-
-"ConfigureStartPins_WinningProvider"=-
-
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\providers\B5292708-1619-419B-9923-E5D9F3925E71\default\Device\Start]
-"ConfigureStartPins"=-
-"ConfigureStartPins_LastWrite"=-
-
 ; --Revert File System Settings--
 
 ; Revert Long File Paths to Default (Disabled)
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem]
 "LongPathsEnabled"=dword:00000000
 
-; --Revert Multimedia and Gaming Performance--
-
-; Reverts Multimedia Applications' System Responsiveness and Network Throttling Index to Default Values
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile]
-"SystemResponsiveness"=dword:00000014
-"NetworkThrottlingIndex"=dword:ffffffff
-
-; --Revert Gaming Performance--
-
-; Reverts Graphics Cards Priority for Gaming to Default
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games]
-"GPU Priority"=dword:00000002 ; Default value is 2
-
-; Reverts CPU Priority for Gaming to Default
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games]
-"Priority"=dword:00000002 ; Default value is 2
-
-; Reverts Games Scheduling Category to Default
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games]
-"Scheduling Category"="Medium" ; Default value is "Medium"
-
-; Removes "Take Ownership" from Context Menu
-[-HKEY_CLASSES_ROOT\*\shell\TakeOwnership]
-
-[-HKEY_CLASSES_ROOT\*\shell\runas]
-
-[-HKEY_CLASSES_ROOT\Directory\shell\TakeOwnership]
-
-[-HKEY_CLASSES_ROOT\Drive\shell\runas]
-
-; HARDWARE AND SOUND
-; lock
-[-HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings]
-
-; sleep
-[-HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FlyoutMenuSettings]
-
-; startup sound
-[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation]
-"DisableStartupSound"=dword:00000000
-
-[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\EditionOverrides]
-"UserSetting_DisableStartupSound"=dword:00000000
+; --Revert Multimedia--
 
 ; device installation settings
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Device Metadata]
@@ -1777,11 +1647,6 @@ Windows Registry Editor Version 5.00
 ; allow other network users to control or disable the shared internet connection
 [HKEY_LOCAL_MACHINE\System\ControlSet001\Control\Network\SharedAccessConnection]
 "EnableControl"=dword:00000001
-
-; SYSTEM AND SECURITY
-; revert adjust for best performance of programs
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl]
-"Win32PrioritySeparation"=dword:00000002
 
 ; remote assistance
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance]
@@ -3750,7 +3615,7 @@ $xamlWindow.FindName("EnableUACButton").Add_Click({
     If ($result -eq 'Yes') {
         Try {
             Write-Output "Enable UAC Button Clicked"
-            cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 3 /f
+            cmd.exe /c reg.exe add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d 1 /f
             [System.Windows.MessageBox]::Show("User Account Control (UAC) has been successfully enabled.", "Success", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information)
         } Catch {
             [System.Windows.MessageBox]::Show("Failed to enable UAC.", "Error", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Error)
