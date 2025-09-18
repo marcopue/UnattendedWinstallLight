@@ -1,4 +1,16 @@
-# UnattendedWinstall
+# UnattendedWinstall Light - Gaming Edition
+
+## 🎮 Optimized for Windows 11 Pro 24H2 Gaming & Multitasking
+
+**This version has been specifically optimized for gaming setups with Discord, Spotify, Steam, and multitasking workflows.**
+
+### ⚡ Key Optimizations:
+- **92% smaller file** (294 lines vs 3656 lines) - faster installation
+- **Gaming-focused accessibility settings** - No more accidental StickyKeys, Narrator, or FilterKeys interrupting your games
+- **Performance optimizations** - Game Mode enabled, GameDVR disabled, DirectX windowed game optimizations
+- **Reduced bloatware** - Removes Xbox apps, Office hub, and other unnecessary software
+- **Privacy-enhanced** - Minimal telemetry, disabled Cortana, no advertising ID
+- **Windows 11 24H2 specific** - Modern configurations, BitLocker auto-encryption disabled
 
 ## Introduction
 
