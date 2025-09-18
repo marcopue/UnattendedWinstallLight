@@ -1,5 +1,41 @@
 # Updates
 
+## 18/12/2024
+### v3.0.0 Light Gaming Edition - MAJOR OPTIMIZATION 🎮
+#### Complete `autounattend.xml` Rewrite
+- **MASSIVE SIZE REDUCTION**: 92% smaller file (294 lines vs 3656 lines, 12KB vs 144KB)
+- **GAMING-FOCUSED**: Specifically optimized for Windows 11 Pro 24H2 gaming and multitasking setups
+- **ACCESSIBILITY GAMING OPTIMIZATIONS**:
+  - Properly disables Narrator (no more random voice interruptions)
+  - Disables StickyKeys, ToggleKeys, FilterKeys (no more accidental activation during gaming)
+  - Disables SoundSentry visual alerts that can distract during gameplay
+  - Removes accessibility sounds and warnings
+- **PERFORMANCE ENHANCEMENTS**:
+  - Game Mode automatically enabled
+  - Xbox GameDVR completely disabled for better FPS
+  - DirectX optimizations for windowed games
+  - Variable refresh rate optimizations
+- **PRIVACY & BLOATWARE**:
+  - Minimal telemetry (Security level only)
+  - Removes Xbox apps, Office hub, Teams, and gaming-irrelevant software
+  - Disables Cortana, Copilot, News & Interests
+  - Disables BitLocker auto-encryption (can impact gaming performance)
+- **WINDOWS 11 24H2 SPECIFIC**:
+  - Prevents auto-upgrade to 25H2
+  - Modern Windows 11 configurations
+  - Optimized for current hardware requirements
+- **SIMPLIFIED STRUCTURE**:
+  - Removed all "Default/Recommended" toggle functions
+  - Eliminated redundant registry sections
+  - Streamlined installation process
+  - Removed obsolete Windows 10 configurations
+
+#### Benefits for Gaming Setup
+- **Discord**: No accessibility interruptions during voice chat
+- **Spotify**: Optimized audio without system interference  
+- **Steam**: Better game performance with disabled GameDVR and enabled Game Mode
+- **Multitasking**: Reduced system overhead, fewer background processes
+
 ## 28/11/2024
 ### v2.1.0 Changes
 #### `autounattend.xml` Changes
