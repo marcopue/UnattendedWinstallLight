@@ -1839,6 +1839,8 @@ Windows Registry Editor Version 5.00
 ; disable enhance pointer precision
 [HKEY_CURRENT_USER\Control Panel\Mouse]
 "MouseSpeed"="0"
+"MouseThreshold1"="0"
+"MouseThreshold2"="0"
 
 ; SYSTEM AND SECURITY
 
@@ -1910,45 +1912,6 @@ Windows Registry Editor Version 5.00
 "UseNexusForGameBarEnabled"=dword:00000000
 "AutoGameModeEnabled"=dword:00000001
 
-; other settings
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\GameDVR]
-"AppCaptureEnabled"=dword:00000000
-"AudioEncodingBitrate"=dword:0001f400
-"AudioCaptureEnabled"=dword:00000000
-"CustomVideoEncodingBitrate"=dword:003d0900
-"CustomVideoEncodingHeight"=dword:000002d0
-"CustomVideoEncodingWidth"=dword:00000500
-"HistoricalBufferLength"=dword:0000001e
-"HistoricalBufferLengthUnit"=dword:00000001
-"HistoricalCaptureEnabled"=dword:00000000
-"HistoricalCaptureOnBatteryAllowed"=dword:00000001
-"HistoricalCaptureOnWirelessDisplayAllowed"=dword:00000001
-"MaximumRecordLength"=hex(b):00,D0,88,C3,10,00,00,00
-"VideoEncodingBitrateMode"=dword:00000002
-"VideoEncodingResolutionMode"=dword:00000002
-"VideoEncodingFrameRateMode"=dword:00000000
-"EchoCancellationEnabled"=dword:00000001
-"CursorCaptureEnabled"=dword:00000000
-"VKToggleGameBar"=dword:00000000
-"VKMToggleGameBar"=dword:00000000
-"VKSaveHistoricalVideo"=dword:00000000
-"VKMSaveHistoricalVideo"=dword:00000000
-"VKToggleRecording"=dword:00000000
-"VKMToggleRecording"=dword:00000000
-"VKTakeScreenshot"=dword:00000000
-"VKMTakeScreenshot"=dword:00000000
-"VKToggleRecordingIndicator"=dword:00000000
-"VKMToggleRecordingIndicator"=dword:00000000
-"VKToggleMicrophoneCapture"=dword:00000000
-"VKMToggleMicrophoneCapture"=dword:00000000
-"VKToggleCameraCapture"=dword:00000000
-"VKMToggleCameraCapture"=dword:00000000
-"VKToggleBroadcast"=dword:00000000
-"VKMToggleBroadcast"=dword:00000000
-"MicrophoneCaptureEnabled"=dword:00000000
-"SystemAudioGain"=hex(b):10,27,00,00,00,00,00,00
-"MicrophoneGain"=hex(b):10,27,00,00,00,00,00,00
-
 ; TIME & LANGUAGE 
 ; disable show the voice typing mic button
 ; disable typing insights
@@ -1991,43 +1954,11 @@ Windows Registry Editor Version 5.00
 "EnableInkingWithTouch"=dword:00000000
 
 ; SYSTEM
-[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM]
-"UseDpiScaling"=dword:00000000
-
-; disable variable refresh rate & enable optimizations for windowed games
-[HKEY_CURRENT_USER\Software\Microsoft\DirectX\UserGpuPreferences]
-"DirectXUserGlobalSettings"="SwapEffectUpgradeEnable=1;VRROptimizeEnable=0;"
-
-; disable notifications
-; Disable Notifications on Lock Screen
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\PushNotifications]
-"ToastEnabled"=dword:00000000
-"LockScreenToastEnabled"=dword:00000000
-
-; Disable Allow Notifications to Play Sounds
-; Disable Notifications on Lock Screen
-; Disable Show Reminders and VoIP Calls Notifications on Lock Screen
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings]
-"NOC_GLOBAL_SETTING_ALLOW_NOTIFICATION_SOUND"=dword:00000000
-"NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK"=dword:00000000
-"NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance]
-"Enabled"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel]
-"Enabled"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.CapabilityAccess]
-"Enabled"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp]
-"Enabled"=dword:00000000
-
+; Disable windows welcome experience
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement]
 "ScoobeSystemSettingEnabled"=dword:00000000
 
-; disable suggested actions
+; disable clipboard suggested actions
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\SmartActionPlatform\SmartClipboard]
 "Disabled"=dword:00000001
 
@@ -2071,17 +2002,13 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}]
 "System.IsPinnedToNameSpaceTree"=dword:00000000
 
-; restore the classic context menu
-[HKEY_CURRENT_USER\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32]
-@=""
-
 ; removes OneDrive Setup
 [-HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
 "OneDriveSetup"=-
 
 ; Hides the Try New Outlook Button
 [HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Outlook\Options\General]
-"HideNewOutlookToggle"=dword:00000000
+"HideNewOutlookToggle"=dword:00000001
 "@
     Set-Content -Path "$env:TEMP\Optimize_User_Registry.reg" -Value $MultilineComment -Force
     Regedit.exe /S "$env:TEMP\Optimize_User_Registry.reg"
@@ -2148,6 +2075,8 @@ Windows Registry Editor Version 5.00
 ; enhance pointer precision
 [HKEY_CURRENT_USER\Control Panel\Mouse]
 "MouseSpeed"="1"
+"MouseThreshold1"="6"
+"MouseThreshold2"="10"
 
 ; SYSTEM AND SECURITY
 
@@ -2211,45 +2140,6 @@ Windows Registry Editor Version 5.00
 "UseNexusForGameBarEnabled"=-
 "AutoGameModeEnabled"=-
 
-; other settings
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\GameDVR]
-"AppCaptureEnabled"=-
-"AudioEncodingBitrate"=-
-"AudioCaptureEnabled"=-
-"CustomVideoEncodingBitrate"=-
-"CustomVideoEncodingHeight"=-
-"CustomVideoEncodingWidth"=-
-"HistoricalBufferLength"=-
-"HistoricalBufferLengthUnit"=-
-"HistoricalCaptureEnabled"=-
-"HistoricalCaptureOnBatteryAllowed"=-
-"HistoricalCaptureOnWirelessDisplayAllowed"=-
-"MaximumRecordLength"=-
-"VideoEncodingBitrateMode"=-
-"VideoEncodingResolutionMode"=-
-"VideoEncodingFrameRateMode"=-
-"EchoCancellationEnabled"=-
-"CursorCaptureEnabled"=-
-"VKToggleGameBar"=-
-"VKMToggleGameBar"=-
-"VKSaveHistoricalVideo"=-
-"VKMSaveHistoricalVideo"=-
-"VKToggleRecording"=-
-"VKMToggleRecording"=-
-"VKTakeScreenshot"=-
-"VKMTakeScreenshot"=-
-"VKToggleRecordingIndicator"=-
-"VKMToggleRecordingIndicator"=-
-"VKToggleMicrophoneCapture"=-
-"VKMToggleMicrophoneCapture"=-
-"VKToggleCameraCapture"=-
-"VKMToggleCameraCapture"=-
-"VKToggleBroadcast"=-
-"VKMToggleBroadcast"=-
-"MicrophoneCaptureEnabled"=-
-"SystemAudioGain"=-
-"MicrophoneGain"=-
-
 ; TIME & LANGUAGE 
 ; show the voice typing mic button
 ; typing insights
@@ -2291,33 +2181,7 @@ Windows Registry Editor Version 5.00
 [-HKEY_CURRENT_USER\Software\Microsoft\TabletTip\EmbeddedInkControl]
 
 ; SYSTEM
-[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM]
-"UseDpiScaling"=-
-
-; variable refresh rate & optimizations for windowed games
-[HKEY_CURRENT_USER\Software\Microsoft\DirectX\UserGpuPreferences]
-"DirectXUserGlobalSettings"=-
-
 ; Notification defaults
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\PushNotifications]
-"ToastEnabled"=-
-"LockScreenToastEnabled"=-
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings]
-"NOC_GLOBAL_SETTING_ALLOW_NOTIFICATION_SOUND"=-
-"NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK"=-
-"NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK"=-
-
-[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance]
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel]
-"Enabled"=-
-
-[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.CapabilityAccess]
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp]
-"Enabled"=dword:00000000
-
 [-HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement]
 
 ; suggested actions
@@ -2360,9 +2224,6 @@ Windows Registry Editor Version 5.00
 ; OTHER
 ; gallery
 [-HKEY_CURRENT_USER\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}]
-
-; context menu
-[-HKEY_CURRENT_USER\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}]
 "@
     Set-Content -Path "$env:TEMP\Restore_User_Registry.reg" -Value $MultilineComment -Force
     Regedit.exe /S "$env:TEMP\Restore_User_Registry.reg"
@@ -2859,6 +2720,8 @@ Windows Registry Editor Version 5.00
 ; disable enhance pointer precision
 [HKEY_CURRENT_USER\Control Panel\Mouse]
 "MouseSpeed"="0"
+"MouseThreshold1"="0"
+"MouseThreshold2"="0"
 
 ; SYSTEM AND SECURITY
 
@@ -2930,45 +2793,6 @@ Windows Registry Editor Version 5.00
 "UseNexusForGameBarEnabled"=dword:00000000
 "AutoGameModeEnabled"=dword:00000001
 
-; other settings
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\GameDVR]
-"AppCaptureEnabled"=dword:00000000
-"AudioEncodingBitrate"=dword:0001f400
-"AudioCaptureEnabled"=dword:00000000
-"CustomVideoEncodingBitrate"=dword:003d0900
-"CustomVideoEncodingHeight"=dword:000002d0
-"CustomVideoEncodingWidth"=dword:00000500
-"HistoricalBufferLength"=dword:0000001e
-"HistoricalBufferLengthUnit"=dword:00000001
-"HistoricalCaptureEnabled"=dword:00000000
-"HistoricalCaptureOnBatteryAllowed"=dword:00000001
-"HistoricalCaptureOnWirelessDisplayAllowed"=dword:00000001
-"MaximumRecordLength"=hex(b):00,D0,88,C3,10,00,00,00
-"VideoEncodingBitrateMode"=dword:00000002
-"VideoEncodingResolutionMode"=dword:00000002
-"VideoEncodingFrameRateMode"=dword:00000000
-"EchoCancellationEnabled"=dword:00000001
-"CursorCaptureEnabled"=dword:00000000
-"VKToggleGameBar"=dword:00000000
-"VKMToggleGameBar"=dword:00000000
-"VKSaveHistoricalVideo"=dword:00000000
-"VKMSaveHistoricalVideo"=dword:00000000
-"VKToggleRecording"=dword:00000000
-"VKMToggleRecording"=dword:00000000
-"VKTakeScreenshot"=dword:00000000
-"VKMTakeScreenshot"=dword:00000000
-"VKToggleRecordingIndicator"=dword:00000000
-"VKMToggleRecordingIndicator"=dword:00000000
-"VKToggleMicrophoneCapture"=dword:00000000
-"VKMToggleMicrophoneCapture"=dword:00000000
-"VKToggleCameraCapture"=dword:00000000
-"VKMToggleCameraCapture"=dword:00000000
-"VKToggleBroadcast"=dword:00000000
-"VKMToggleBroadcast"=dword:00000000
-"MicrophoneCaptureEnabled"=dword:00000000
-"SystemAudioGain"=hex(b):10,27,00,00,00,00,00,00
-"MicrophoneGain"=hex(b):10,27,00,00,00,00,00,00
-
 ; TIME & LANGUAGE 
 ; disable show the voice typing mic button
 ; disable typing insights
@@ -3011,43 +2835,11 @@ Windows Registry Editor Version 5.00
 "EnableInkingWithTouch"=dword:00000000
 
 ; SYSTEM
-[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM]
-"UseDpiScaling"=dword:00000000
-
-; disable variable refresh rate & enable optimizations for windowed games
-[HKEY_CURRENT_USER\Software\Microsoft\DirectX\UserGpuPreferences]
-"DirectXUserGlobalSettings"="SwapEffectUpgradeEnable=1;VRROptimizeEnable=0;"
-
-; disable notifications
-; Disable Notifications on Lock Screen
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\PushNotifications]
-"ToastEnabled"=dword:00000000
-"LockScreenToastEnabled"=dword:00000000
-
-; Disable Allow Notifications to Play Sounds
-; Disable Notifications on Lock Screen
-; Disable Show Reminders and VoIP Calls Notifications on Lock Screen
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings]
-"NOC_GLOBAL_SETTING_ALLOW_NOTIFICATION_SOUND"=dword:00000000
-"NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK"=dword:00000000
-"NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance]
-"Enabled"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel]
-"Enabled"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.CapabilityAccess]
-"Enabled"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp]
-"Enabled"=dword:00000000
-
+; Disable Windows welcome experience
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement]
 "ScoobeSystemSettingEnabled"=dword:00000000
 
-; disable suggested actions
+; disable clipboard suggested actions
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\SmartActionPlatform\SmartClipboard]
 "Disabled"=dword:00000001
 
@@ -3091,17 +2883,13 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}]
 "System.IsPinnedToNameSpaceTree"=dword:00000000
 
-; restore the classic context menu
-[HKEY_CURRENT_USER\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32]
-@=""
-
 ; removes OneDrive Setup
 [-HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
 "OneDriveSetup"=-
 
 ; Hides the Try New Outlook Button
 [HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Outlook\Options\General]
-"HideNewOutlookToggle"=dword:00000000
+"HideNewOutlookToggle"=dword:00000001
 
 ; Cleans up Taskbar
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband]
