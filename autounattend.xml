@@ -1362,7 +1362,7 @@ Windows Registry Editor Version 5.00
 "ProductVersion"=-
 "DeferFeatureUpdates"=-
 "DeferFeatureUpdatesPeriodInDays"=-
-"DeferQualityUpdates"=dword:-
+"DeferQualityUpdates"=-
 "DeferQualityUpdatesPeriodInDays"=-
 
 ; Reverts Delivery Optimization settings to allow downloads from other PCs
@@ -1788,44 +1788,28 @@ Windows Registry Editor Version 5.00
 ; APPEARANCE AND PERSONALIZATION
 ; open file explorer to this pc
 ; show file name extensions
-; disable display file size information in folder tips
-; disable show pop-up description for folder and desktop items
 ; disable show preview handlers in preview pane
-; disable show status bar
 ; disable show sync provider notifications
 ; disable use sharing wizard
-; disable animations in the taskbar
-; enable show thumbnails instead of icons
-; disable show translucent selection rectangle
-; disable use drop shadows for icon labels on the desktop
 ; more pins personalization start
 ; disable show account-related notifications
 ; disable show recently opened items in start, jump lists and file explorer
-; left taskbar alignment
 ; remove chat from taskbar
 ; remove task view from taskbar
 ; remove copilot from taskbar
 ; disable show recommendations for tips shortcuts new apps and more
 ; disable share any window from my taskbar
-; disable snap window settings - SnapAssist to JointResize Entries
+; disable snap window settings - Keep flyout enabled
 ; alt tab open windows only
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 "LaunchTo"=dword:00000001
 "HideFileExt"=dword:00000000
-"FolderContentsInfoTip"=dword:00000000
-"ShowInfoTip"=dword:00000000
 "ShowPreviewHandlers"=dword:00000000
-"ShowStatusBar"=dword:00000000
 "ShowSyncProviderNotifications"=dword:00000000
 "SharingWizardOn"=dword:00000000
-"TaskbarAnimations"=dword:0
-"IconsOnly"=dword:0
-"ListviewAlphaSelect"=dword:0
-"ListviewShadow"=dword:0
 "Start_Layout"=dword:00000001
 "Start_AccountNotifications"=dword:00000000
 "Start_TrackDocs"=dword:00000000 
-"TaskbarAl"=dword:00000000
 "TaskbarMn"=dword:00000000
 "ShowTaskViewButton"=dword:00000000
 "ShowCopilotButton"=dword:00000000
@@ -1835,9 +1819,6 @@ Windows Registry Editor Version 5.00
 "DITest"=dword:00000000
 "EnableSnapBar"=dword:00000000
 "EnableTaskGroups"=dword:00000000
-"EnableSnapAssistFlyout"=dword:00000000
-"SnapFill"=dword:00000000
-"JointResize"=dword:00000000
 "MultiTaskingAltTabFilter"=dword:00000003
 
 ; hide frequent folders in quick access
@@ -1856,49 +1837,16 @@ Windows Registry Editor Version 5.00
 "UserDuckingPreference"=dword:00000003
 
 ; disable enhance pointer precision
-; mouse fix (no accel with epp on)
 [HKEY_CURRENT_USER\Control Panel\Mouse]
 "MouseSpeed"="0"
 "MouseThreshold1"="0"
 "MouseThreshold2"="0"
-"MouseSensitivity"="10"
-"SmoothMouseXCurve"=hex:\
-	00,00,00,00,00,00,00,00,\
-	C0,CC,0C,00,00,00,00,00,\
-	80,99,19,00,00,00,00,00,\
-	40,66,26,00,00,00,00,00,\
-	00,33,33,00,00,00,00,00
-"SmoothMouseYCurve"=hex:\
-	00,00,00,00,00,00,00,00,\
-	00,00,38,00,00,00,00,00,\
-	00,00,70,00,00,00,00,00,\
-	00,00,A8,00,00,00,00,00,\
-	00,00,E0,00,00,00,00,00
 
 ; SYSTEM AND SECURITY
-; set appearance options to custom
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects]
-"VisualFXSetting"=dword:3
 
-; disable animate controls and elements inside windows
-; disable fade or slide menus into view
-; disable fade or slide tooltips into view
-; disable fade out menu items after clicking
-; disable show shadows under mouse pointer
-; disable show shadows under windows
-; disable slide open combo boxes
-; disable smooth-scroll list boxes
-; enable smooth edges of screen fonts
-; 100% dpi scaling
-; disable fix scaling for apps
-; disable menu show delay
+; faster menu show delay
 [HKEY_CURRENT_USER\Control Panel\Desktop]
-"UserPreferencesMask"=hex(2):90,12,03,80,10,00,00,00
-"FontSmoothing"="2"
-"LogPixels"=dword:00000060
-"Win8DpiScaling"=dword:00000001
-"EnablePerProcessSystemDPI"=dword:00000000
-"MenuShowDelay"="0"
+"MenuShowDelay"="100"
 
 ; --IMMERSIVE CONTROL PANEL--
 ; PRIVACY
@@ -1939,7 +1887,6 @@ Windows Registry Editor Version 5.00
 ; feedback frequency never
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Siuf\Rules]
 "NumberOfSIUFInPeriod"=dword:00000000
-"PeriodInNanoSeconds"=-
 
 ; SEARCH
 ; disable search highlights
@@ -1965,61 +1912,12 @@ Windows Registry Editor Version 5.00
 "UseNexusForGameBarEnabled"=dword:00000000
 "AutoGameModeEnabled"=dword:00000001
 
-; other settings
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\GameDVR]
-"AppCaptureEnabled"=dword:00000000
-"AudioEncodingBitrate"=dword:0001f400
-"AudioCaptureEnabled"=dword:00000000
-"CustomVideoEncodingBitrate"=dword:003d0900
-"CustomVideoEncodingHeight"=dword:000002d0
-"CustomVideoEncodingWidth"=dword:00000500
-"HistoricalBufferLength"=dword:0000001e
-"HistoricalBufferLengthUnit"=dword:00000001
-"HistoricalCaptureEnabled"=dword:00000000
-"HistoricalCaptureOnBatteryAllowed"=dword:00000001
-"HistoricalCaptureOnWirelessDisplayAllowed"=dword:00000001
-"MaximumRecordLength"=hex(b):00,D0,88,C3,10,00,00,00
-"VideoEncodingBitrateMode"=dword:00000002
-"VideoEncodingResolutionMode"=dword:00000002
-"VideoEncodingFrameRateMode"=dword:00000000
-"EchoCancellationEnabled"=dword:00000001
-"CursorCaptureEnabled"=dword:00000000
-"VKToggleGameBar"=dword:00000000
-"VKMToggleGameBar"=dword:00000000
-"VKSaveHistoricalVideo"=dword:00000000
-"VKMSaveHistoricalVideo"=dword:00000000
-"VKToggleRecording"=dword:00000000
-"VKMToggleRecording"=dword:00000000
-"VKTakeScreenshot"=dword:00000000
-"VKMTakeScreenshot"=dword:00000000
-"VKToggleRecordingIndicator"=dword:00000000
-"VKMToggleRecordingIndicator"=dword:00000000
-"VKToggleMicrophoneCapture"=dword:00000000
-"VKMToggleMicrophoneCapture"=dword:00000000
-"VKToggleCameraCapture"=dword:00000000
-"VKMToggleCameraCapture"=dword:00000000
-"VKToggleBroadcast"=dword:00000000
-"VKMToggleBroadcast"=dword:00000000
-"MicrophoneCaptureEnabled"=dword:00000000
-"SystemAudioGain"=hex(b):10,27,00,00,00,00,00,00
-"MicrophoneGain"=hex(b):10,27,00,00,00,00,00,00
-
 ; TIME & LANGUAGE 
 ; disable show the voice typing mic button
 ; disable typing insights
 [HKEY_CURRENT_USER\Software\Microsoft\input\Settings]
 "IsVoiceTypingKeyEnabled"=dword:00000000
 "InsightsEnabled"=dword:00000000
-
-; disable capitalize the first letter of each sentence
-; disable play key sounds as i type
-; disable add a period after i double-tap the spacebar
-; disable show key background
-[HKEY_CURRENT_USER\Software\Microsoft\TabletTip\1.7]
-"EnableAutoShiftEngage"=dword:00000000
-"EnableKeyAudioFeedback"=dword:00000000
-"EnableDoubleTapSpace"=dword:00000000
-"IsKeyBackgroundEnabled"=dword:00000000
 
 ; PERSONALIZATION
 ; dark theme 
@@ -2056,49 +1954,13 @@ Windows Registry Editor Version 5.00
 "EnableInkingWithTouch"=dword:00000000
 
 ; SYSTEM
-[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM]
-"UseDpiScaling"=dword:00000000
-
-; disable variable refresh rate & enable optimizations for windowed games
-[HKEY_CURRENT_USER\Software\Microsoft\DirectX\UserGpuPreferences]
-"DirectXUserGlobalSettings"="SwapEffectUpgradeEnable=1;VRROptimizeEnable=0;"
-
-; disable notifications
-; Disable Notifications on Lock Screen
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\PushNotifications]
-"ToastEnabled"=dword:00000000
-"LockScreenToastEnabled"=dword:00000000
-
-; Disable Allow Notifications to Play Sounds
-; Disable Notifications on Lock Screen
-; Disable Show Reminders and VoIP Calls Notifications on Lock Screen
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings]
-"NOC_GLOBAL_SETTING_ALLOW_NOTIFICATION_SOUND"=dword:00000000
-"NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK"=dword:00000000
-"NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance]
-"Enabled"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel]
-"Enabled"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.CapabilityAccess]
-"Enabled"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp]
-"Enabled"=dword:00000000
-
+; Disable windows welcome experience
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement]
 "ScoobeSystemSettingEnabled"=dword:00000000
 
-; disable suggested actions
+; disable clipboard suggested actions
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\SmartActionPlatform\SmartClipboard]
 "Disabled"=dword:00000001
-
-; battery options optimize for video quality
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\VideoSettings]
-"VideoQualityOnBattery"=dword:00000001
 
 ; UWP Apps
 ; disable windows input experience preload
@@ -2140,17 +2002,13 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}]
 "System.IsPinnedToNameSpaceTree"=dword:00000000
 
-; restore the classic context menu
-[HKEY_CURRENT_USER\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32]
-@=""
-
 ; removes OneDrive Setup
 [-HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
 "OneDriveSetup"=-
 
 ; Hides the Try New Outlook Button
 [HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Outlook\Options\General]
-"HideNewOutlookToggle"=dword:00000000
+"HideNewOutlookToggle"=dword:00000001
 "@
     Set-Content -Path "$env:TEMP\Optimize_User_Registry.reg" -Value $MultilineComment -Force
     Regedit.exe /S "$env:TEMP\Optimize_User_Registry.reg"
@@ -2178,28 +2036,16 @@ Windows Registry Editor Version 5.00
 [-HKEY_CURRENT_USER\Control Panel\Accessibility\ToggleKeys]
 [-HKEY_CURRENT_USER\Control Panel\Accessibility\SoundSentry]
 
-; CLOCK AND REGION
-; notify me when the clock changes
-[-HKEY_CURRENT_USER\Control Panel\TimeDate]
-
 ; APPEARANCE AND PERSONALIZATION
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 "LaunchTo"=-
 "HideFileExt"=dword:00000001
-"FolderContentsInfoTip"=-
-"ShowInfoTip"=dword:00000001
 "ShowPreviewHandlers"=-
-"ShowStatusBar"=dword:00000001
 "ShowSyncProviderNotifications"=-
 "SharingWizardOn"=-
-"TaskbarAnimations"=dword:1
-"IconsOnly"=dword:0
-"ListviewAlphaSelect"=dword:1
-"ListviewShadow"=dword:1
 "Start_Layout"=-
 "Start_AccountNotifications"=-
 "Start_TrackDocs"=-
-"TaskbarAl"=-
 "TaskbarMn"=-
 "ShowTaskViewButton"=-
 "ShowCopilotButton"=-
@@ -2209,9 +2055,6 @@ Windows Registry Editor Version 5.00
 "DITest"=-
 "EnableSnapBar"=-
 "EnableTaskGroups"=-
-"EnableSnapAssistFlyout"=-
-"SnapFill"=-
-"JointResize"=-
 "MultiTaskingAltTabFilter"=-
 
 ; frequent folders in quick access
@@ -2230,40 +2073,15 @@ Windows Registry Editor Version 5.00
 "UserDuckingPreference"=-
 
 ; enhance pointer precision
-; mouse (default accel with epp on)
 [HKEY_CURRENT_USER\Control Panel\Mouse]
 "MouseSpeed"="1"
 "MouseThreshold1"="6"
 "MouseThreshold2"="10"
-"MouseSensitivity"="10"
-"SmoothMouseXCurve"=hex:00,00,00,00,00,00,00,00,15,6e,00,00,00,00,00,00,00,40,\
-  01,00,00,00,00,00,29,dc,03,00,00,00,00,00,00,00,28,00,00,00,00,00
-"SmoothMouseYCurve"=hex:00,00,00,00,00,00,00,00,fd,11,01,00,00,00,00,00,00,24,\
-  04,00,00,00,00,00,00,fc,12,00,00,00,00,00,00,c0,bb,01,00,00,00,00
 
 ; SYSTEM AND SECURITY
-; set appearance options
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects]
-"VisualFXSetting"=-
 
-; animate controls and elements inside windows
-; fade or slide menus into view
-; fade or slide tooltips into view
-; fade out menu items after clicking
-; show shadows under mouse pointer
-; show shadows under windows
-; slide open combo boxes
-; smooth-scroll list boxes
-; smooth edges of screen fonts
-; dpi scaling
-; fix scaling for apps
 ; menu show delay
 [HKEY_CURRENT_USER\Control Panel\Desktop]
-"UserPreferencesMask"=hex(2):9e,1e,07,80,12,00,00,00
-"FontSmoothing"="2"
-"LogPixels"=-
-"Win8DpiScaling"=dword:00000000
-"EnablePerProcessSystemDPI"=-
 "MenuShowDelay"="400"
 
 ; --IMMERSIVE CONTROL PANEL--
@@ -2314,7 +2132,7 @@ Windows Registry Editor Version 5.00
 ; GAMING
 ; game bar
 [HKEY_CURRENT_USER\System\GameConfigStore]
-"GameDVR_Enabled"=dword:00000000
+"GameDVR_Enabled"=dword:00000001
 
 ; enable open xbox game bar using game controller
 ; game mode
@@ -2322,61 +2140,12 @@ Windows Registry Editor Version 5.00
 "UseNexusForGameBarEnabled"=-
 "AutoGameModeEnabled"=-
 
-; other settings
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\GameDVR]
-"AppCaptureEnabled"=-
-"AudioEncodingBitrate"=-
-"AudioCaptureEnabled"=-
-"CustomVideoEncodingBitrate"=-
-"CustomVideoEncodingHeight"=-
-"CustomVideoEncodingWidth"=-
-"HistoricalBufferLength"=-
-"HistoricalBufferLengthUnit"=-
-"HistoricalCaptureEnabled"=-
-"HistoricalCaptureOnBatteryAllowed"=-
-"HistoricalCaptureOnWirelessDisplayAllowed"=-
-"MaximumRecordLength"=-
-"VideoEncodingBitrateMode"=-
-"VideoEncodingResolutionMode"=-
-"VideoEncodingFrameRateMode"=-
-"EchoCancellationEnabled"=-
-"CursorCaptureEnabled"=-
-"VKToggleGameBar"=-
-"VKMToggleGameBar"=-
-"VKSaveHistoricalVideo"=-
-"VKMSaveHistoricalVideo"=-
-"VKToggleRecording"=-
-"VKMToggleRecording"=-
-"VKTakeScreenshot"=-
-"VKMTakeScreenshot"=-
-"VKToggleRecordingIndicator"=-
-"VKMToggleRecordingIndicator"=-
-"VKToggleMicrophoneCapture"=-
-"VKMToggleMicrophoneCapture"=-
-"VKToggleCameraCapture"=-
-"VKMToggleCameraCapture"=-
-"VKToggleBroadcast"=-
-"VKMToggleBroadcast"=-
-"MicrophoneCaptureEnabled"=-
-"SystemAudioGain"=-
-"MicrophoneGain"=-
-
 ; TIME & LANGUAGE 
 ; show the voice typing mic button
 ; typing insights
 [HKEY_CURRENT_USER\Software\Microsoft\input\Settings]
 "IsVoiceTypingKeyEnabled"=-
 "InsightsEnabled"=-
-
-; capitalize the first letter of each sentence
-; play key sounds as i type
-; add a period after i double-tap the spacebar
-; show key background
-[HKEY_CURRENT_USER\Software\Microsoft\TabletTip\1.7]
-"EnableAutoShiftEngage"=-
-"EnableKeyAudioFeedback"=-
-"EnableDoubleTapSpace"=-
-"IsKeyBackgroundEnabled"=-
 
 ; PERSONALIZATION
 ; light theme 
@@ -2412,41 +2181,12 @@ Windows Registry Editor Version 5.00
 [-HKEY_CURRENT_USER\Software\Microsoft\TabletTip\EmbeddedInkControl]
 
 ; SYSTEM
-[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM]
-"UseDpiScaling"=-
-
-; variable refresh rate & optimizations for windowed games
-[HKEY_CURRENT_USER\Software\Microsoft\DirectX\UserGpuPreferences]
-"DirectXUserGlobalSettings"=-
-
 ; Notification defaults
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\PushNotifications]
-"ToastEnabled"=-
-"LockScreenToastEnabled"=-
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings]
-"NOC_GLOBAL_SETTING_ALLOW_NOTIFICATION_SOUND"=-
-"NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK"=-
-"NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK"=-
-
-[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance]
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel]
-"Enabled"=-
-
-[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.CapabilityAccess]
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp]
-"Enabled"=dword:00000000
-
 [-HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement]
 
 ; suggested actions
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\SmartActionPlatform\SmartClipboard]
 "Disabled"=-
-
-; battery options optimize
-[-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\VideoSettings]
 
 ; UWP APPS
 ; disable windows input experience preload
@@ -2484,9 +2224,6 @@ Windows Registry Editor Version 5.00
 ; OTHER
 ; gallery
 [-HKEY_CURRENT_USER\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}]
-
-; context menu
-[-HKEY_CURRENT_USER\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}]
 "@
     Set-Content -Path "$env:TEMP\Restore_User_Registry.reg" -Value $MultilineComment -Force
     Regedit.exe /S "$env:TEMP\Restore_User_Registry.reg"
@@ -2929,52 +2666,31 @@ Windows Registry Editor Version 5.00
 "Flags"="0"
 "WindowsEffect"="0"
 
-; CLOCK AND REGION
-; disable notify me when the clock changes
-[HKEY_CURRENT_USER\Control Panel\TimeDate]
-"DstNotification"=dword:00000000
-
 ; APPEARANCE AND PERSONALIZATION
 ; open file explorer to this pc
 ; show file name extensions
-; disable display file size information in folder tips
-; disable show pop-up description for folder and desktop items
 ; disable show preview handlers in preview pane
-; disable show status bar
 ; disable show sync provider notifications
 ; disable use sharing wizard
-; disable animations in the taskbar
-; enable show thumbnails instead of icons
-; disable show translucent selection rectangle
-; disable use drop shadows for icon labels on the desktop
 ; more pins personalization start
 ; disable show account-related notifications
 ; disable show recently opened items in start, jump lists and file explorer
-; left taskbar alignment
 ; remove chat from taskbar
 ; remove task view from taskbar
 ; remove copilot from taskbar
 ; disable show recommendations for tips shortcuts new apps and more
 ; disable share any window from my taskbar
-; disable snap window settings - SnapAssist to JointResize Entries
+; disable snap window settings - Keep flyout enabled
 ; alt tab open windows only
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 "LaunchTo"=dword:00000001
 "HideFileExt"=dword:00000000
-"FolderContentsInfoTip"=dword:00000000
-"ShowInfoTip"=dword:00000000
 "ShowPreviewHandlers"=dword:00000000
-"ShowStatusBar"=dword:00000000
 "ShowSyncProviderNotifications"=dword:00000000
 "SharingWizardOn"=dword:00000000
-"TaskbarAnimations"=dword:0
-"IconsOnly"=dword:0
-"ListviewAlphaSelect"=dword:0
-"ListviewShadow"=dword:0
 "Start_Layout"=dword:00000001
 "Start_AccountNotifications"=dword:00000000
 "Start_TrackDocs"=dword:00000000 
-"TaskbarAl"=dword:00000000
 "TaskbarMn"=dword:00000000
 "ShowTaskViewButton"=dword:00000000
 "ShowCopilotButton"=dword:00000000
@@ -2984,9 +2700,6 @@ Windows Registry Editor Version 5.00
 "DITest"=dword:00000000
 "EnableSnapBar"=dword:00000000
 "EnableTaskGroups"=dword:00000000
-"EnableSnapAssistFlyout"=dword:00000000
-"SnapFill"=dword:00000000
-"JointResize"=dword:00000000
 "MultiTaskingAltTabFilter"=dword:00000003
 
 ; hide frequent folders in quick access
@@ -3005,49 +2718,16 @@ Windows Registry Editor Version 5.00
 "UserDuckingPreference"=dword:00000003
 
 ; disable enhance pointer precision
-; mouse fix (no accel with epp on)
 [HKEY_CURRENT_USER\Control Panel\Mouse]
 "MouseSpeed"="0"
 "MouseThreshold1"="0"
 "MouseThreshold2"="0"
-"MouseSensitivity"="10"
-"SmoothMouseXCurve"=hex:\
-	00,00,00,00,00,00,00,00,\
-	C0,CC,0C,00,00,00,00,00,\
-	80,99,19,00,00,00,00,00,\
-	40,66,26,00,00,00,00,00,\
-	00,33,33,00,00,00,00,00
-"SmoothMouseYCurve"=hex:\
-	00,00,00,00,00,00,00,00,\
-	00,00,38,00,00,00,00,00,\
-	00,00,70,00,00,00,00,00,\
-	00,00,A8,00,00,00,00,00,\
-	00,00,E0,00,00,00,00,00
 
 ; SYSTEM AND SECURITY
-; set appearance options to custom
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects]
-"VisualFXSetting"=dword:3
 
-; disable animate controls and elements inside windows
-; disable fade or slide menus into view
-; disable fade or slide tooltips into view
-; disable fade out menu items after clicking
-; disable show shadows under mouse pointer
-; disable show shadows under windows
-; disable slide open combo boxes
-; disable smooth-scroll list boxes
-; enable smooth edges of screen fonts
-; 100% dpi scaling
-; disable fix scaling for apps
-; disable menu show delay
+; faster menu show delay
 [HKEY_CURRENT_USER\Control Panel\Desktop]
-"UserPreferencesMask"=hex(2):90,12,03,80,10,00,00,00
-"FontSmoothing"="2"
-"LogPixels"=dword:00000060
-"Win8DpiScaling"=dword:00000001
-"EnablePerProcessSystemDPI"=dword:00000000
-"MenuShowDelay"="0"
+"MenuShowDelay"="100"
 
 ; --IMMERSIVE CONTROL PANEL--
 ; PRIVACY
@@ -3088,7 +2768,6 @@ Windows Registry Editor Version 5.00
 ; feedback frequency never
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Siuf\Rules]
 "NumberOfSIUFInPeriod"=dword:00000000
-"PeriodInNanoSeconds"=-
 
 ; SEARCH
 ; disable search highlights
@@ -3114,61 +2793,12 @@ Windows Registry Editor Version 5.00
 "UseNexusForGameBarEnabled"=dword:00000000
 "AutoGameModeEnabled"=dword:00000001
 
-; other settings
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\GameDVR]
-"AppCaptureEnabled"=dword:00000000
-"AudioEncodingBitrate"=dword:0001f400
-"AudioCaptureEnabled"=dword:00000000
-"CustomVideoEncodingBitrate"=dword:003d0900
-"CustomVideoEncodingHeight"=dword:000002d0
-"CustomVideoEncodingWidth"=dword:00000500
-"HistoricalBufferLength"=dword:0000001e
-"HistoricalBufferLengthUnit"=dword:00000001
-"HistoricalCaptureEnabled"=dword:00000000
-"HistoricalCaptureOnBatteryAllowed"=dword:00000001
-"HistoricalCaptureOnWirelessDisplayAllowed"=dword:00000001
-"MaximumRecordLength"=hex(b):00,D0,88,C3,10,00,00,00
-"VideoEncodingBitrateMode"=dword:00000002
-"VideoEncodingResolutionMode"=dword:00000002
-"VideoEncodingFrameRateMode"=dword:00000000
-"EchoCancellationEnabled"=dword:00000001
-"CursorCaptureEnabled"=dword:00000000
-"VKToggleGameBar"=dword:00000000
-"VKMToggleGameBar"=dword:00000000
-"VKSaveHistoricalVideo"=dword:00000000
-"VKMSaveHistoricalVideo"=dword:00000000
-"VKToggleRecording"=dword:00000000
-"VKMToggleRecording"=dword:00000000
-"VKTakeScreenshot"=dword:00000000
-"VKMTakeScreenshot"=dword:00000000
-"VKToggleRecordingIndicator"=dword:00000000
-"VKMToggleRecordingIndicator"=dword:00000000
-"VKToggleMicrophoneCapture"=dword:00000000
-"VKMToggleMicrophoneCapture"=dword:00000000
-"VKToggleCameraCapture"=dword:00000000
-"VKMToggleCameraCapture"=dword:00000000
-"VKToggleBroadcast"=dword:00000000
-"VKMToggleBroadcast"=dword:00000000
-"MicrophoneCaptureEnabled"=dword:00000000
-"SystemAudioGain"=hex(b):10,27,00,00,00,00,00,00
-"MicrophoneGain"=hex(b):10,27,00,00,00,00,00,00
-
 ; TIME & LANGUAGE 
 ; disable show the voice typing mic button
 ; disable typing insights
 [HKEY_CURRENT_USER\Software\Microsoft\input\Settings]
 "IsVoiceTypingKeyEnabled"=dword:00000000
 "InsightsEnabled"=dword:00000000
-
-; disable capitalize the first letter of each sentence
-; disable play key sounds as i type
-; disable add a period after i double-tap the spacebar
-; disable show key background
-[HKEY_CURRENT_USER\Software\Microsoft\TabletTip\1.7]
-"EnableAutoShiftEngage"=dword:00000000
-"EnableKeyAudioFeedback"=dword:00000000
-"EnableDoubleTapSpace"=dword:00000000
-"IsKeyBackgroundEnabled"=dword:00000000
 
 ; PERSONALIZATION
 ; dark theme 
@@ -3205,49 +2835,13 @@ Windows Registry Editor Version 5.00
 "EnableInkingWithTouch"=dword:00000000
 
 ; SYSTEM
-[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\DWM]
-"UseDpiScaling"=dword:00000000
-
-; disable variable refresh rate & enable optimizations for windowed games
-[HKEY_CURRENT_USER\Software\Microsoft\DirectX\UserGpuPreferences]
-"DirectXUserGlobalSettings"="SwapEffectUpgradeEnable=1;VRROptimizeEnable=0;"
-
-; disable notifications
-; Disable Notifications on Lock Screen
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\PushNotifications]
-"ToastEnabled"=dword:00000000
-"LockScreenToastEnabled"=dword:00000000
-
-; Disable Allow Notifications to Play Sounds
-; Disable Notifications on Lock Screen
-; Disable Show Reminders and VoIP Calls Notifications on Lock Screen
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings]
-"NOC_GLOBAL_SETTING_ALLOW_NOTIFICATION_SOUND"=dword:00000000
-"NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK"=dword:00000000
-"NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.SecurityAndMaintenance]
-"Enabled"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel]
-"Enabled"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.CapabilityAccess]
-"Enabled"=dword:00000000
-
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings\Windows.SystemToast.StartupApp]
-"Enabled"=dword:00000000
-
+; Disable Windows welcome experience
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement]
 "ScoobeSystemSettingEnabled"=dword:00000000
 
-; disable suggested actions
+; disable clipboard suggested actions
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\SmartActionPlatform\SmartClipboard]
 "Disabled"=dword:00000001
-
-; battery options optimize for video quality
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\VideoSettings]
-"VideoQualityOnBattery"=dword:00000001
 
 ; UWP Apps
 ; disable windows input experience preload
@@ -3289,17 +2883,13 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}]
 "System.IsPinnedToNameSpaceTree"=dword:00000000
 
-; restore the classic context menu
-[HKEY_CURRENT_USER\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32]
-@=""
-
 ; removes OneDrive Setup
 [-HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
 "OneDriveSetup"=-
 
 ; Hides the Try New Outlook Button
 [HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Outlook\Options\General]
-"HideNewOutlookToggle"=dword:00000000
+"HideNewOutlookToggle"=dword:00000001
 
 ; Cleans up Taskbar
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband]
